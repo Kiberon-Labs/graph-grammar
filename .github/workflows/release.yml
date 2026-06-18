@@ -78,18 +78,27 @@ jobs:
           # escaping (newlines, special chars) is handled safely.
           PACKAGE_LINES=$(echo "$PUBLISHED_PACKAGES" \
             | jq -r '.[] | "• <https://www.npmjs.com/package/\(.name)/v/\(.version)|\(.name)@\(.version)>"')
+          # No channel/username/icon_emoji overrides: an app-based incoming
+          # webhook ignores them and posts to its configured channel, while a
+          # legacy webhook returns 404 `channel_not_found` if "#packages" can't
+          # be resolved — a likely cause of the earlier curl 404.
           PAYLOAD=$(jq -n \
             --arg pkgs "$PACKAGE_LINES" \
             --arg run "$RUN_URL" \
             --arg repo "${{ github.repository }}" \
             '{
-              channel: "#packages",
-              username: "GitHub Actions",
-              icon_emoji: ":package:",
               text: ("New release published for " + $repo),
               blocks: [
                 { type: "section", text: { type: "mrkdwn", text: (":rocket: *New packages published from " + $repo + "*\n" + $pkgs) } },
                 { type: "context", elements: [ { type: "mrkdwn", text: ("<" + $run + "|View workflow run>") } ] }
               ]
             }')
-          curl -fsS -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL"
+          # Capture Slack's HTTP status + body so failures are diagnosable
+          # (invalid webhook -> 404 "no_service"; bad payload -> "invalid_payload").
+          HTTP_CODE=$(curl -sS -o /tmp/slack_resp.txt -w '%{http_code}' \
+            -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL")
+          echo "Slack responded HTTP $HTTP_CODE: $(cat /tmp/slack_resp.txt)"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Slack notification failed (HTTP $HTTP_CODE). Check that the SLACK_WEBHOOK_URL secret is a valid, active incoming-webhook URL."
+            exit 1
+          fi

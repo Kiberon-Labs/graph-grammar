@@ -56,8 +56,14 @@ jobs:
       - name: Build site + demo app
         run: pnpm run build
         env:
-          PAGES_SITE: gg.kiberonlabs.com
-          PAGES_BASE: ${{ steps.pages.outputs.base_path }}
+          # The site is published on the gg.kiberonlabs.com custom domain, which
+          # serves from the root. So the origin is hardcoded WITH its scheme
+          # (Astro's `site` must be a fully-qualified URL — a bare host fails
+          # config validation with "Invalid URL", which silently drops the
+          # sitemap and the base-prefixed favicon), and the base is "/" rather
+          # than the repo subpath that configure-pages reports.
+          PAGES_SITE: https://gg.kiberonlabs.com
+          PAGES_BASE: /
 
       - name: Assemble Pages artifact
         run: |
