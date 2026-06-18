@@ -1,0 +1,84 @@
+name: Deploy to GitHub Pages
+
+# Builds the documentation site (Astro/Starlight) and the interactive demo app
+# (Vite/React) and publishes them together as one GitHub Pages site:
+#   <pages-url>/        → the docs website
+#   <pages-url>/app/    → the live demo workbench
+#
+# Prerequisite (one-time, in the repo): Settings → Pages → Build and deployment
+# → Source = "GitHub Actions".
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Least-privilege token plus the scopes the Pages deploy action needs.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one in-flight deploy at a time; don't cancel a running publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Resolves the site's origin + base path (e.g. /graph-grammar) from the
+      # repo's Pages settings, so this works unchanged for forks, renames, and
+      # user/org root sites.
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4 # version comes from package.json "packageManager"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # One ordered build (library → editor → demo app → docs). PAGES_* are read
+      # by docs/astro.config.mjs; the demo app uses a relative base, so it needs
+      # no base injection to work from the /app/ subpath.
+      - name: Build site + demo app
+        run: pnpm run build
+        env:
+          PAGES_SITE: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE: ${{ steps.pages.outputs.base_path }}
+
+      - name: Assemble Pages artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site/app
+          cp -r docs/dist/. _site/
+          cp -r apps/web/dist/. _site/app/
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

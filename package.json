@@ -1,0 +1,43 @@
+{
+  "name": "graph-grammar-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo for the graph-grammar engine (library), the interactive workbench (app), and the documentation site.",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "scripts": {
+    "dev": "pnpm --filter @graph-grammar/web dev",
+    "dev:docs": "pnpm --filter @graph-grammar/docs dev",
+    "build": "pnpm run build:lib && pnpm run build:editor && pnpm run build:web && pnpm run build:docs",
+    "build:lib": "pnpm --filter graph-grammar build",
+    "build:editor": "pnpm --filter graph-grammar-react build",
+    "build:web": "pnpm --filter @graph-grammar/web build",
+    "build:docs": "pnpm --filter @graph-grammar/docs build",
+    "build:scraper": "pnpm --filter fallout-quest-scraper build",
+    "scrape": "pnpm --filter fallout-quest-scraper scrape",
+    "test": "pnpm --filter graph-grammar test && pnpm --filter graph-grammar-react test && pnpm --filter fallout-quest-scraper test",
+    "bench": "pnpm --filter graph-grammar bench",
+    "typecheck": "pnpm --filter graph-grammar typecheck && pnpm --filter graph-grammar-react typecheck && pnpm --filter @graph-grammar/web typecheck && pnpm --filter fallout-quest-scraper typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:ci": "eslint .",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm run build:lib && pnpm run build:editor && changeset publish",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "neostandard": "^0.13.0",
+    "typescript": "^5.6.3"
+  }
+}

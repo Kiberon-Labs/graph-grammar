@@ -1,0 +1,56 @@
+name: NPM Release
+
+on:
+  push:
+    branches:
+      - master
+
+# Sets permissions of the GITHUB_TOKEN
+permissions:
+  contents: write
+  pages: write
+  id-token: write  # Required for OIDC
+  pull-requests: write
+
+jobs:
+  release:
+    environment: npm
+    # Prevents changesets action from creating a PR on forks
+    if: github.repository == 'kiberon-labs/behave-graph'
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          # NOTE: deliberately no `registry-url` here. Setting it writes an
+          # .npmrc with an _authToken=${NODE_AUTH_TOKEN} placeholder, which
+          # makes npm take the (empty) token auth path and skip the OIDC
+          # trusted-publishing exchange, failing the publish with E404.
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm i
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1.9.0 
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use OIDC for npm authentication instead of NPM_TOKEN
+          # # https://github.com/changesets/changesets/issues/1152#issuecomment-3190884868
+          NPM_TOKEN: ${{ SECRETS.NPM_TOKEN}}
+

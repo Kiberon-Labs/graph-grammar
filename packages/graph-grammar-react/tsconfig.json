@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "graph-grammar": ["../graph-grammar/src/index.ts"],
+      "graph-grammar/examples": ["../graph-grammar/src/examples.ts"]
+    }
+  },
+  "include": ["src", "tsup.config.ts"]
+}

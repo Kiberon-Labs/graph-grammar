@@ -1,0 +1,9 @@
+node_modules/
+dist/
+packages/*/dist/
+apps/*/dist/
+docs/dist/
+.astro/
+_site/
+*.local
+.DS_Store

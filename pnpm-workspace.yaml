@@ -1,0 +1,12 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'docs'
+allowBuilds:
+  esbuild: true
+  sharp: true
+# Native build scripts are blocked by default; allow the ones we trust.
+# esbuild → used by vite/tsup; sharp → used by Astro for image processing.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp

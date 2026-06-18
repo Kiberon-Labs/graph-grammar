@@ -1,0 +1,17 @@
+{
+  "name": "@graph-grammar/docs",
+  "version": "0.1.0",
+  "description": "Documentation site for the graph-grammar engine (Astro + Starlight).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.40.0",
+    "astro": "^6.4.7"
+  }
+}

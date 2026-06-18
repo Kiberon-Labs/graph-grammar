@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "paths": {
+      "graph-grammar-react": ["../../packages/graph-grammar-react/src/index.ts"],
+      "graph-grammar": ["../../packages/graph-grammar/src/index.ts"],
+      "graph-grammar/examples": ["../../packages/graph-grammar/src/examples.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

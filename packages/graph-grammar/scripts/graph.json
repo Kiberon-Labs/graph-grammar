@@ -1,0 +1,1480 @@
+{
+  "nodes": [
+    {
+      "id": "nmqihou0u_1ks_hgnx",
+      "label": "Hero",
+      "props": {
+        "name": "Dobrynya",
+        "epithet": "the smith's apprentice",
+        "cast": true
+      },
+      "x": 140,
+      "y": 330
+    },
+    {
+      "id": "nmqihou0u_1kt_5900",
+      "label": "CastChar",
+      "props": {
+        "name": "Ivan",
+        "role": "hero",
+        "relation": "self",
+        "epithet": "the youngest son"
+      },
+      "x": 740,
+      "y": 24
+    },
+    {
+      "id": "nmqihou0u_1ku_dkqy",
+      "label": "CastChar",
+      "props": {
+        "name": "Alyosha",
+        "role": "hero",
+        "relation": "self",
+        "epithet": "the soldier's boy"
+      },
+      "x": 740,
+      "y": 46
+    },
+    {
+      "id": "nmqihou0u_1kv_fm4g",
+      "label": "CastChar",
+      "props": {
+        "name": "Dobrynya",
+        "role": "hero",
+        "relation": "self",
+        "epithet": "the smith's apprentice",
+        "cast": true
+      },
+      "x": 740,
+      "y": 68
+    },
+    {
+      "id": "nmqihou0u_1kw_gwn7",
+      "label": "CastChar",
+      "props": {
+        "name": "Koschei the Deathless",
+        "role": "villain",
+        "relation": "none",
+        "epithet": "whose death hides in an egg",
+        "cast": true
+      },
+      "x": 740,
+      "y": 90
+    },
+    {
+      "id": "nmqihou0u_1kx_6kwv",
+      "label": "CastChar",
+      "props": {
+        "name": "the Sea-Tsar",
+        "role": "villain",
+        "relation": "none",
+        "epithet": "lord of the drowned halls"
+      },
+      "x": 740,
+      "y": 112
+    },
+    {
+      "id": "nmqihou0u_1ky_km9f",
+      "label": "CastChar",
+      "props": {
+        "name": "Baba Yaga",
+        "role": "villain",
+        "relation": "none",
+        "epithet": "who rides the iron mortar"
+      },
+      "x": 740,
+      "y": 134
+    },
+    {
+      "id": "nmqihou0u_1kz_d50e",
+      "label": "CastChar",
+      "props": {
+        "name": "the Dragon Gorynych",
+        "role": "villain",
+        "relation": "none",
+        "epithet": "of the three burning heads"
+      },
+      "x": 740,
+      "y": 156
+    },
+    {
+      "id": "nmqihou0u_1l0_lb5y",
+      "label": "CastChar",
+      "props": {
+        "name": "Vasilisa",
+        "role": "victim",
+        "relation": "sister",
+        "epithet": "the fair"
+      },
+      "x": 740,
+      "y": 178
+    },
+    {
+      "id": "nmqihou0u_1l1_3vz0",
+      "label": "CastChar",
+      "props": {
+        "name": "Yelena",
+        "role": "victim",
+        "relation": "betrothed",
+        "epithet": "the wise"
+      },
+      "x": 740,
+      "y": 200
+    },
+    {
+      "id": "nmqihou0u_1l2_37p3",
+      "label": "CastChar",
+      "props": {
+        "name": "Marya Morevna",
+        "role": "victim",
+        "relation": "betrothed",
+        "epithet": "the warrior-queen",
+        "cast": true
+      },
+      "x": 740,
+      "y": 222
+    },
+    {
+      "id": "nmqihou0u_1l3_kov8",
+      "label": "CastChar",
+      "props": {
+        "name": "the water-carrier",
+        "role": "rival",
+        "relation": "none",
+        "epithet": "with the borrowed sword",
+        "cast": true
+      },
+      "x": 740,
+      "y": 244
+    },
+    {
+      "id": "nmqihou0u_1l4_aovr",
+      "label": "CastChar",
+      "props": {
+        "name": "the boyar's son",
+        "role": "rival",
+        "relation": "none",
+        "epithet": "in his father's furs"
+      },
+      "x": 740,
+      "y": 266
+    },
+    {
+      "id": "nmqihou0u_1l5_fh55",
+      "label": "CastChar",
+      "props": {
+        "name": "the cook",
+        "role": "rival",
+        "relation": "none",
+        "epithet": "who smelled of smoke"
+      },
+      "x": 740,
+      "y": 288
+    },
+    {
+      "id": "nmqihou0u_1l6_cr06",
+      "label": "CastChar",
+      "props": {
+        "name": "Marfa",
+        "role": "elder",
+        "relation": "grandmother",
+        "epithet": "the keeper of the hearth"
+      },
+      "x": 740,
+      "y": 310
+    },
+    {
+      "id": "nmqihou0u_1l7_e38b",
+      "label": "CastChar",
+      "props": {
+        "name": "Yegor",
+        "role": "elder",
+        "relation": "grandfather",
+        "epithet": "the old huntsman"
+      },
+      "x": 740,
+      "y": 332
+    },
+    {
+      "id": "nmqihou0u_1l8_gllz",
+      "label": "CastChar",
+      "props": {
+        "name": "Stepan",
+        "role": "elder",
+        "relation": "father",
+        "epithet": "the headman"
+      },
+      "x": 740,
+      "y": 354
+    },
+    {
+      "id": "nmqihou0u_1l9_8y3e",
+      "label": "CastChar",
+      "props": {
+        "name": "Darya",
+        "role": "elder",
+        "relation": "mother",
+        "epithet": "the weaver"
+      },
+      "x": 740,
+      "y": 376
+    },
+    {
+      "id": "nmqihou0u_1la_k3ye",
+      "label": "CastChar",
+      "props": {
+        "name": "the hermit",
+        "role": "elder",
+        "relation": "mentor",
+        "epithet": "who reads the stars"
+      },
+      "x": 740,
+      "y": 398
+    },
+    {
+      "id": "nmqihou0u_1lb_5s7r",
+      "label": "CastChar",
+      "props": {
+        "name": "the swineherd",
+        "role": "commoner",
+        "relation": "none",
+        "epithet": "always last to bed"
+      },
+      "x": 740,
+      "y": 420
+    },
+    {
+      "id": "nmqihou0u_1lc_jbnc",
+      "label": "CastChar",
+      "props": {
+        "name": "the miller's daughter",
+        "role": "commoner",
+        "relation": "none",
+        "epithet": "with flour in her hair"
+      },
+      "x": 740,
+      "y": 442
+    },
+    {
+      "id": "nmqihou0u_1le_dz3o",
+      "label": "CastChar",
+      "props": {
+        "name": "the ferryman",
+        "role": "commoner",
+        "relation": "none",
+        "epithet": "who knows the fords"
+      },
+      "x": 740,
+      "y": 486
+    },
+    {
+      "id": "nmqihou0u_1lf_gixl",
+      "label": "CastChar",
+      "props": {
+        "name": "the gatekeeper",
+        "role": "guardian",
+        "relation": "none",
+        "epithet": "of the old oak doors"
+      },
+      "x": 740,
+      "y": 508
+    },
+    {
+      "id": "nmqihou0u_1lg_ihub",
+      "label": "CastChar",
+      "props": {
+        "name": "the village priest",
+        "role": "priest",
+        "relation": "none",
+        "epithet": "who tends the shrine"
+      },
+      "x": 740,
+      "y": 530
+    },
+    {
+      "id": "nmqihou0u_1lh_dx34",
+      "label": "CastItem",
+      "props": {
+        "name": "a firebird feather",
+        "kind": "talisman",
+        "epithet": "that burns without heat"
+      },
+      "x": 960,
+      "y": 40
+    },
+    {
+      "id": "nmqihou0u_1li_ff34",
+      "label": "CastItem",
+      "props": {
+        "name": "an enchanted ring",
+        "kind": "talisman",
+        "epithet": "warm to a true hand"
+      },
+      "x": 960,
+      "y": 70
+    },
+    {
+      "id": "nmqihou0u_1lj_2uiq",
+      "label": "CastItem",
+      "props": {
+        "name": "a sword of light",
+        "kind": "weapon",
+        "epithet": "forged in star-fall"
+      },
+      "x": 960,
+      "y": 100
+    },
+    {
+      "id": "nmqihou0u_1lk_h4tj",
+      "label": "CastItem",
+      "props": {
+        "name": "a self-swinging axe",
+        "kind": "weapon",
+        "epithet": "that never misses"
+      },
+      "x": 960,
+      "y": 130
+    },
+    {
+      "id": "nmqihou0u_1ll_1umi",
+      "label": "CastItem",
+      "props": {
+        "name": "the icon of the saint",
+        "kind": "relic",
+        "epithet": "weeping silver"
+      },
+      "x": 960,
+      "y": 160
+    },
+    {
+      "id": "nmqihou0u_1lm_k9tn",
+      "label": "CastItem",
+      "props": {
+        "name": "the sacrificial lamb",
+        "kind": "food",
+        "epithet": "promised to the gods"
+      },
+      "x": 960,
+      "y": 190
+    },
+    {
+      "id": "nmqihou0u_1ln_21vk",
+      "label": "CastItem",
+      "props": {
+        "name": "the last loaf",
+        "kind": "food",
+        "epithet": "blessed at midwinter"
+      },
+      "x": 960,
+      "y": 220
+    },
+    {
+      "id": "nmqihou0u_1lo_3ojk",
+      "label": "CastItem",
+      "props": {
+        "name": "a ball of magic yarn",
+        "kind": "tool",
+        "epithet": "that rolls to its master"
+      },
+      "x": 960,
+      "y": 250
+    },
+    {
+      "id": "nmqihou0u_1lp_24wd",
+      "label": "CastItem",
+      "props": {
+        "name": "a flying carpet",
+        "kind": "tool",
+        "epithet": "woven in Samarkand"
+      },
+      "x": 960,
+      "y": 280
+    },
+    {
+      "id": "nmqihou0u_1lr_c2b5",
+      "label": "CastPlace",
+      "props": {
+        "name": "the riverside hamlet",
+        "kind": "village",
+        "epithet": "of seven chimneys"
+      },
+      "x": 1100,
+      "y": 56
+    },
+    {
+      "id": "nmqihou0u_1lt_87xm",
+      "label": "CastPlace",
+      "props": {
+        "name": "the postern gate",
+        "kind": "gate",
+        "epithet": "behind the chapel"
+      },
+      "x": 1100,
+      "y": 108
+    },
+    {
+      "id": "nmqihou0u_1lu_it70",
+      "label": "CastPlace",
+      "props": {
+        "name": "the Kalinov bridge",
+        "kind": "bridge",
+        "epithet": "between the living and the dead"
+      },
+      "x": 1100,
+      "y": 134
+    },
+    {
+      "id": "nmqihou0u_1lw_hj9p",
+      "label": "CastPlace",
+      "props": {
+        "name": "the Smorodina river",
+        "kind": "river",
+        "epithet": "of currants and fire"
+      },
+      "x": 1100,
+      "y": 186
+    },
+    {
+      "id": "nmqihou0u_1lx_6emb",
+      "label": "CastPlace",
+      "props": {
+        "name": "the rye field",
+        "kind": "field",
+        "epithet": "gold to the horizon"
+      },
+      "x": 1100,
+      "y": 212
+    },
+    {
+      "id": "nmqihou0u_1ly_holx",
+      "label": "CastPlace",
+      "props": {
+        "name": "the dragon's cave",
+        "kind": "cave",
+        "epithet": "stinking of sulphur"
+      },
+      "x": 1100,
+      "y": 238
+    },
+    {
+      "id": "nmqihou0u_1m0_i1yr",
+      "label": "CastPlace",
+      "props": {
+        "name": "the protection-stone shrine",
+        "kind": "shrine",
+        "epithet": "ringed with rowan"
+      },
+      "x": 1100,
+      "y": 290
+    },
+    {
+      "id": "nmqihou0u_1m1_jf37",
+      "label": "CastPlace",
+      "props": {
+        "name": "the old well",
+        "kind": "well",
+        "epithet": "whose bottom no rope finds"
+      },
+      "x": 1100,
+      "y": 316
+    },
+    {
+      "id": "nmqihou0u_1m2_i69y",
+      "label": "CastPlace",
+      "props": {
+        "name": "the prince's hall",
+        "kind": "hall",
+        "epithet": "hung with banners"
+      },
+      "x": 1100,
+      "y": 342
+    },
+    {
+      "id": "nmqihpfhr_1r2_dltu",
+      "label": "Location",
+      "props": {
+        "role": "wilds",
+        "name": "the dark forest",
+        "epithet": "where no birds sing",
+        "cast": true
+      },
+      "x": 136.83326552467736,
+      "y": 222.95291342761166,
+      "index": 42,
+      "vy": -0.00004994984904462002,
+      "vx": -0.0011564276288136565
+    },
+    {
+      "id": "nmqihpfl1_1r3_k6l5",
+      "label": "InitialSituation",
+      "props": {
+        "sym": "α",
+        "n": 1,
+        "text": "Once, where the river bends and the forest leans close, there dwelt {hero}, {heroEpithet}.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice"
+      },
+      "x": -70.10715504585471,
+      "y": 56.77461860239349,
+      "index": 43,
+      "vy": 0.00035862378198045784,
+      "vx": -0.0004682544099736037
+    },
+    {
+      "id": "nmqihpfsx_1r7_hs7d",
+      "label": "Interdiction",
+      "props": {
+        "sym": "γ/δ",
+        "n": 2,
+        "text": "Bar the gate of {place} at nightfall and on no account open it, they warned {who}, {whoEpithet} , yet {who} left it swinging in the dark.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "who": "the night-watchman",
+        "whoEpithet": "fond of his cup",
+        "whoRelation": "none",
+        "place": "the postern gate",
+        "placeEpithet": "behind the chapel"
+      },
+      "x": -140.02857204800253,
+      "y": 120.42580647039058,
+      "index": 44,
+      "vy": 0.000008527994187702056,
+      "vx": -0.0008692979040162587
+    },
+    {
+      "id": "nmqihpfvq_1ra_gf1c",
+      "label": "Reconnaissance",
+      "props": {
+        "sym": "ε",
+        "n": 3,
+        "text": "{villain}, {villainEpithet}, circled the village three times in the shape of a crow, marking the door left open and the hearth left untended.",
+        "fleshed": true,
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg"
+      },
+      "x": -128.00442972541188,
+      "y": 190.63663148581816,
+      "index": 45,
+      "vy": -0.00019801081712434598,
+      "vx": -0.0006043877438188812
+    },
+    {
+      "id": "nmqihpfvq_1rb_e1ee",
+      "label": "Villain",
+      "props": {
+        "name": "Koschei the Deathless",
+        "defeated": true,
+        "punished": true,
+        "epithet": "whose death hides in an egg",
+        "bondType": "covets",
+        "cast": true
+      },
+      "x": -86.04294352802188,
+      "y": 134.65116097550228,
+      "index": 46,
+      "vy": -0.00002032482619104426,
+      "vx": -0.0004698050080689082
+    },
+    {
+      "id": "nmqihpg0b_1rf_hhl6",
+      "label": "Villainy",
+      "props": {
+        "sym": "A",
+        "n": 4,
+        "text": "{villain}, who had long coveted {princess}, {princessEpithet}, swept down like a storm-cloud and bore her off to {lair}.",
+        "fleshed": true,
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg",
+        "princess": "Marya Morevna",
+        "princessEpithet": "the warrior-queen",
+        "princessRelation": "betrothed",
+        "lair": "the glass mountain",
+        "lairEpithet": "no horse can climb"
+      },
+      "x": -56.83203877435951,
+      "y": 188.25722452076698,
+      "index": 47,
+      "vy": -0.00031283982246521467,
+      "vx": -0.0006035660322722356
+    },
+    {
+      "id": "nmqihpg0b_1rg_ew44",
+      "label": "Lack",
+      "props": {
+        "of": "Marya Morevna",
+        "n": 5,
+        "liquidated": true,
+        "victimEpithet": "the warrior-queen",
+        "victimRelation": "betrothed",
+        "cast": true
+      },
+      "x": -37.25936935121834,
+      "y": 91.67694887786341,
+      "index": 48,
+      "vy": 0.00035553603558552996,
+      "vx": -0.0002888627653923061
+    },
+    {
+      "id": "nmqihpg2y_1rl_8c2j",
+      "label": "Mediation",
+      "props": {
+        "sym": "B",
+        "n": 6,
+        "text": "The cry went up through the land, and {hero}, {heroEpithet}, heard it and knew the loss was his own to mend.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice"
+      },
+      "x": -21.447679810365123,
+      "y": 253.97291578691858,
+      "index": 49,
+      "vy": -0.00030885868901034847,
+      "vx": -0.00022291057176694498
+    },
+    {
+      "id": "nmqihpg50_1ro_l6ex",
+      "label": "Counteraction",
+      "props": {
+        "sym": "C",
+        "n": 7,
+        "text": "{hero}, {heroEpithet}, girded himself in silence, for he had set his heart on the road and no word could turn him from it.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice"
+      },
+      "x": 57.16577262295226,
+      "y": 206.78762450069294,
+      "index": 50,
+      "vy": 0.0004623512076858642,
+      "vx": 0.00030930530358030673
+    },
+    {
+      "id": "nmqihpg99_1rr_kxzu",
+      "label": "Departure",
+      "props": {
+        "sym": "↑",
+        "n": 8,
+        "text": "So {hero}, {heroEpithet}, left {home} and took the road past {gateway}, where no traveller had told the way.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "home": "the village of Tikhomirovo",
+        "homeEpithet": "at the forest's edge",
+        "gateway": "the village gate",
+        "gatewayEpithet": "of the old oak doors"
+      },
+      "x": 102.51702188510541,
+      "y": 143.9146505392217,
+      "index": 51,
+      "vy": -0.00017604919659998733,
+      "vx": -0.00025454979332846473
+    },
+    {
+      "id": "nmqihpg99_1rs_92en",
+      "label": "FalseHero",
+      "props": {
+        "name": "the water-carrier",
+        "n": 9,
+        "exposed": true,
+        "epithet": "with the borrowed sword",
+        "bondType": "rival",
+        "cast": true
+      },
+      "x": 83.81301903151352,
+      "y": 36.28748858707636,
+      "index": 52,
+      "vy": -0.00037146410964554184,
+      "vx": 0.00008656066394719499
+    },
+    {
+      "id": "nmqihpggs_1rw_iev5",
+      "label": "Guidance",
+      "props": {
+        "sym": "G",
+        "n": 10,
+        "text": "Through {wilds}, {wildsEpithet}, {hero} pressed on until the road ended at {lair}, {lairEpithet}, where the villain kept its hoard.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "wilds": "the dark forest",
+        "wildsEpithet": "where no birds sing",
+        "lair": "the glass mountain",
+        "lairEpithet": "no horse can climb"
+      },
+      "x": 103.48045727743776,
+      "y": 240.44818847900896,
+      "index": 53,
+      "vy": 0.000046116009782388824,
+      "vx": -0.0007190734385706165
+    },
+    {
+      "id": "nmqihpgls_1rz_5g9e",
+      "label": "Struggle",
+      "props": {
+        "sym": "H",
+        "n": 11,
+        "text": "They struck the first time and the earth shook; they struck the second and the waters churned; at the third {hero} and {villain}, {villainEpithet}, were locked beyond parting.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg"
+      },
+      "x": 33.91274654160316,
+      "y": 276.4043333296197,
+      "index": 54,
+      "vy": 0.00023049411242746508,
+      "vx": -0.0006259382093105622
+    },
+    {
+      "id": "nmqihpgls_1s0_dphs",
+      "label": "Victory",
+      "props": {
+        "sym": "J",
+        "n": 12,
+        "text": "By a cunning word {hero} turned the villain's own strength against it, and {villain}, {villainEpithet}, was tricked into its own ruin.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg"
+      },
+      "x": -22.002026478992924,
+      "y": 197.35625861846972,
+      "index": 55,
+      "vy": 0.000560025268323667,
+      "vx": -0.000805517992445235
+    },
+    {
+      "id": "nmqihpgp4_1s5_iei5",
+      "label": "Liquidation",
+      "props": {
+        "sym": "K",
+        "n": 13,
+        "text": "{hero}, {heroEpithet}, broke the spell that bound {princess}, and what was stolen was a stolen thing no longer.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "princess": "Marya Morevna",
+        "princessEpithet": "the warrior-queen",
+        "princessRelation": "betrothed"
+      },
+      "x": 37.410227883726456,
+      "y": 155.21256432558067,
+      "index": 56,
+      "vy": -0.0007638667554709241,
+      "vx": 0.0003430796888903765
+    },
+    {
+      "id": "nmqihpgu8_1s9_52vg",
+      "label": "Return",
+      "props": {
+        "sym": "↓",
+        "n": 14,
+        "text": "From {lair} {hero}, {heroEpithet}, turned homeward, and the long road folded short as he came again into {wilds}, {wildsEpithet}.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "lair": "the glass mountain",
+        "lairEpithet": "no horse can climb",
+        "wilds": "the dark forest",
+        "wildsEpithet": "where no birds sing"
+      },
+      "x": 137.31792095830846,
+      "y": 173.3027310454643,
+      "index": 57,
+      "vy": 0.00005060888274115386,
+      "vx": 0.00023688500372029633
+    },
+    {
+      "id": "nmqihpgy5_1sc_6pez",
+      "label": "Pursuit & rescue",
+      "props": {
+        "sym": "Pr/Rs",
+        "n": 15,
+        "text": "The host of {villain} came on like a storm through {wilds}, yet {hero}, {heroEpithet}, crossed {gateway} and burned the bridge behind him.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg",
+        "wilds": "the dark forest",
+        "wildsEpithet": "where no birds sing",
+        "gateway": "the village gate",
+        "gatewayEpithet": "of the old oak doors"
+      },
+      "x": 210.28499693018165,
+      "y": 192.10722084390272,
+      "index": 58,
+      "vy": 0.00022905126675442695,
+      "vx": 0.00016294885540206767
+    },
+    {
+      "id": "nmqihph0s_1sf_8h82",
+      "label": "FalseClaim",
+      "props": {
+        "sym": "L",
+        "n": 16,
+        "text": "{rival}, {hero}'s rival since boyhood, thrust himself forward to claim the glory for his own.",
+        "fleshed": true,
+        "rival": "the water-carrier",
+        "rivalEpithet": "with the borrowed sword",
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice"
+      },
+      "x": 269.20941590251294,
+      "y": 158.1092324714263,
+      "index": 59,
+      "vy": -0.000707037906663423,
+      "vx": -0.00031946087924964833
+    },
+    {
+      "id": "nmqihph0t_1sg_c38o",
+      "label": "Recognition",
+      "props": {
+        "sym": "Q",
+        "n": 17,
+        "text": "When {hero} bared the old scar at his side, {princess} cried out that here, here was the one who had saved her.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "princess": "Marya Morevna",
+        "princessEpithet": "the warrior-queen",
+        "princessRelation": "betrothed"
+      },
+      "x": 210.78610306948923,
+      "y": 105.82685481703606,
+      "index": 60,
+      "vy": -0.0000797406310546013,
+      "vx": 0.0002432223927255419
+    },
+    {
+      "id": "nmqihph0t_1sh_3cwm",
+      "label": "Exposure",
+      "props": {
+        "sym": "Ex",
+        "n": 18,
+        "text": "{rival}, {rivalEpithet}, could not answer the simplest question of the deed, and his whole boast crumbled before the court.",
+        "fleshed": true,
+        "rival": "the water-carrier",
+        "rivalEpithet": "with the borrowed sword"
+      },
+      "x": 117.63575181849872,
+      "y": 94.9618587161907,
+      "index": 61,
+      "vy": -0.000311070498853901,
+      "vx": -0.00008760571895384244
+    },
+    {
+      "id": "nmqihph3p_1sn_b2ou",
+      "label": "Punishment",
+      "props": {
+        "sym": "U",
+        "n": 19,
+        "text": "{villain}, {villainEpithet}, was given the end it had earned, and troubled the land no more.",
+        "fleshed": true,
+        "villain": "Koschei the Deathless",
+        "villainEpithet": "whose death hides in an egg"
+      },
+      "x": 10.201910053354059,
+      "y": 117.10345768394068,
+      "index": 62,
+      "vy": -0.0002088529002900928,
+      "vx": -0.00009311682698055178
+    },
+    {
+      "id": "nmqihph8k_1sr_6gjp",
+      "label": "Wedding",
+      "props": {
+        "sym": "W",
+        "n": 20,
+        "text": "{hero} brought {princess}, {princessEpithet}, home to {home}, {homeEpithet}, and there they were wed, and the old tsar gave over the half of the kingdom.",
+        "fleshed": true,
+        "hero": "Dobrynya",
+        "heroEpithet": "the smith's apprentice",
+        "princess": "Marya Morevna",
+        "princessEpithet": "the warrior-queen",
+        "princessRelation": "betrothed",
+        "home": "the village of Tikhomirovo",
+        "homeEpithet": "at the forest's edge"
+      },
+      "x": 52.978605427241085,
+      "y": 62.841059586129816,
+      "index": 63,
+      "vy": -0.000005442702463831061,
+      "vx": 8.545718057791605e-8
+    },
+    {
+      "id": "nmqihphi2_1sv_bp20",
+      "label": "Location",
+      "props": {
+        "role": "lair",
+        "name": "the glass mountain",
+        "epithet": "no horse can climb",
+        "cast": true
+      },
+      "x": 35.83877459018717,
+      "y": 235.7890267322187,
+      "index": 64,
+      "vy": -0.00038178430161743684,
+      "vx": -0.0008812069645296728
+    },
+    {
+      "id": "nmqihphmg_1sw_2okg",
+      "label": "Location",
+      "props": {
+        "role": "gateway",
+        "name": "the village gate",
+        "epithet": "of the old oak doors",
+        "cast": true
+      },
+      "x": 163.9660559244402,
+      "y": 135.19032253858728,
+      "index": 65,
+      "vy": 0.00037126680668123237,
+      "vx": -0.0001767774249992091
+    },
+    {
+      "id": "nmqihpiol_1t2_e5zt",
+      "label": "Location",
+      "props": {
+        "role": "home",
+        "name": "the village of Tikhomirovo",
+        "epithet": "at the forest's edge",
+        "cast": true,
+        "paved": true
+      },
+      "x": 116.36844662887611,
+      "y": 51.651938200044455,
+      "index": 66,
+      "vy": 0.00047116781765870006,
+      "vx": -0.0002832183224708001
+    }
+  ],
+  "edges": [
+    {
+      "id": "emqihou0v_1m3_7mze",
+      "source": "nmqihou0u_1kt_5900",
+      "target": "nmqihou0u_1l1_3vz0",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "beloved"
+      }
+    },
+    {
+      "id": "emqihou0v_1m4_3wpj",
+      "source": "nmqihou0u_1kt_5900",
+      "target": "nmqihou0u_1l0_lb5y",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "kin"
+      }
+    },
+    {
+      "id": "emqihou0v_1m5_48av",
+      "source": "nmqihou0u_1ku_dkqy",
+      "target": "nmqihou0u_1l2_37p3",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "beloved"
+      }
+    },
+    {
+      "id": "emqihou0v_1m6_4q6m",
+      "source": "nmqihou0u_1ku_dkqy",
+      "target": "nmqihou0u_1l1_3vz0",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "beloved"
+      }
+    },
+    {
+      "id": "emqihou0v_1m7_7fzu",
+      "source": "nmqihou0u_1kv_fm4g",
+      "target": "nmqihou0u_1l0_lb5y",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "kin"
+      }
+    },
+    {
+      "id": "emqihou0v_1m8_k61i",
+      "source": "nmqihou0u_1kv_fm4g",
+      "target": "nmqihou0u_1l2_37p3",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "beloved"
+      }
+    },
+    {
+      "id": "emqihou0v_1m9_8bbi",
+      "source": "nmqihou0u_1kw_gwn7",
+      "target": "nmqihou0u_1l1_3vz0",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "covets"
+      }
+    },
+    {
+      "id": "emqihou0v_1ma_3x8d",
+      "source": "nmqihou0u_1kw_gwn7",
+      "target": "nmqihou0u_1l2_37p3",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "covets"
+      }
+    },
+    {
+      "id": "emqihou0v_1mb_bxwu",
+      "source": "nmqihou0u_1kx_6kwv",
+      "target": "nmqihou0u_1l2_37p3",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "claims"
+      }
+    },
+    {
+      "id": "emqihou0v_1mc_1we9",
+      "source": "nmqihou0u_1ky_km9f",
+      "target": "nmqihou0u_1l0_lb5y",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "kin"
+      }
+    },
+    {
+      "id": "emqihou0v_1md_i9co",
+      "source": "nmqihou0u_1kz_d50e",
+      "target": "nmqihou0u_1l1_3vz0",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "covets"
+      }
+    },
+    {
+      "id": "emqihou0v_1me_czxc",
+      "source": "nmqihou0u_1kz_d50e",
+      "target": "nmqihou0u_1l0_lb5y",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "covets"
+      }
+    },
+    {
+      "id": "emqihou0v_1mf_a6fz",
+      "source": "nmqihou0u_1l4_aovr",
+      "target": "nmqihou0u_1kt_5900",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "sibling"
+      }
+    },
+    {
+      "id": "emqihou0v_1mg_axb7",
+      "source": "nmqihou0u_1l5_fh55",
+      "target": "nmqihou0u_1ku_dkqy",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "sibling"
+      }
+    },
+    {
+      "id": "emqihou0v_1mh_5c0f",
+      "source": "nmqihou0u_1l3_kov8",
+      "target": "nmqihou0u_1kv_fm4g",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "rival"
+      }
+    },
+    {
+      "id": "emqihou0v_1mi_6nk1",
+      "source": "nmqihou0u_1l4_aovr",
+      "target": "nmqihou0u_1kv_fm4g",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "rival"
+      }
+    },
+    {
+      "id": "emqihou0v_1mj_k040",
+      "source": "nmqihou0u_1l5_fh55",
+      "target": "nmqihou0u_1kt_5900",
+      "label": "rel",
+      "directed": true,
+      "props": {
+        "kind": "rival"
+      }
+    },
+    {
+      "id": "emqihpfl1_1r5_8n78",
+      "source": "nmqihou0u_1ks_hgnx",
+      "target": "nmqihpfl1_1r3_k6l5",
+      "label": "stars",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpfsx_1r8_f16n",
+      "source": "nmqihpfl1_1r3_k6l5",
+      "target": "nmqihpfsx_1r7_hs7d",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpfvq_1rc_l5ev",
+      "source": "nmqihpfsx_1r7_hs7d",
+      "target": "nmqihpfvq_1ra_gf1c",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpfvq_1re_4pmg",
+      "source": "nmqihpfvq_1ra_gf1c",
+      "target": "nmqihpfvq_1rb_e1ee",
+      "label": "scouts",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg0b_1rh_j83s",
+      "source": "nmqihpfvq_1ra_gf1c",
+      "target": "nmqihpg0b_1rf_hhl6",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg0b_1rj_d73r",
+      "source": "nmqihpfvq_1rb_e1ee",
+      "target": "nmqihpg0b_1rf_hhl6",
+      "label": "commits",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg0b_1rk_i8sk",
+      "source": "nmqihpg0b_1rf_hhl6",
+      "target": "nmqihpg0b_1rg_ew44",
+      "label": "causes",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg2y_1rm_ksxj",
+      "source": "nmqihpg0b_1rf_hhl6",
+      "target": "nmqihpg2y_1rl_8c2j",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg50_1rp_at2u",
+      "source": "nmqihpg2y_1rl_8c2j",
+      "target": "nmqihpg50_1ro_l6ex",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg99_1rt_b951",
+      "source": "nmqihpg50_1ro_l6ex",
+      "target": "nmqihpg99_1rr_kxzu",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpg99_1rv_i0px",
+      "source": "nmqihpg99_1rr_kxzu",
+      "target": "nmqihpg99_1rs_92en",
+      "label": "joined by",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpggs_1rx_evzz",
+      "source": "nmqihpg99_1rr_kxzu",
+      "target": "nmqihpggs_1rw_iev5",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgls_1s1_erbv",
+      "source": "nmqihpggs_1rw_iev5",
+      "target": "nmqihpgls_1rz_5g9e",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgls_1s2_9b0p",
+      "source": "nmqihpgls_1rz_5g9e",
+      "target": "nmqihpgls_1s0_dphs",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgls_1s4_2k5v",
+      "source": "nmqihpgls_1s0_dphs",
+      "target": "nmqihpfvq_1rb_e1ee",
+      "label": "defeats",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgp4_1s6_jdga",
+      "source": "nmqihpgls_1s0_dphs",
+      "target": "nmqihpgp4_1s5_iei5",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgp4_1s8_b0j7",
+      "source": "nmqihpgp4_1s5_iei5",
+      "target": "nmqihpg0b_1rg_ew44",
+      "label": "recovers",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgu8_1sa_f1qe",
+      "source": "nmqihpgp4_1s5_iei5",
+      "target": "nmqihpgu8_1s9_52vg",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpgy5_1sd_cz52",
+      "source": "nmqihpgu8_1s9_52vg",
+      "target": "nmqihpgy5_1sc_6pez",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph0t_1si_4fd3",
+      "source": "nmqihpgy5_1sc_6pez",
+      "target": "nmqihph0s_1sf_8h82",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph0t_1sj_3xd6",
+      "source": "nmqihph0s_1sf_8h82",
+      "target": "nmqihph0t_1sg_c38o",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph0t_1sk_96zy",
+      "source": "nmqihph0t_1sg_c38o",
+      "target": "nmqihph0t_1sh_3cwm",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph0t_1sm_bbsu",
+      "source": "nmqihph0t_1sh_3cwm",
+      "target": "nmqihpg99_1rs_92en",
+      "label": "exposes",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph3p_1so_j73n",
+      "source": "nmqihph0t_1sh_3cwm",
+      "target": "nmqihph3p_1sn_b2ou",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph3p_1sq_3uhn",
+      "source": "nmqihph3p_1sn_b2ou",
+      "target": "nmqihpfvq_1rb_e1ee",
+      "label": "punishes",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph8k_1ss_byaq",
+      "source": "nmqihph3p_1sn_b2ou",
+      "target": "nmqihph8k_1sr_6gjp",
+      "label": "then",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihph8k_1su_gnt6",
+      "source": "nmqihou0u_1ks_hgnx",
+      "target": "nmqihph8k_1sr_6gjp",
+      "label": "weds",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihphrj_1sx_b151",
+      "source": "nmqihou0u_1ks_hgnx",
+      "target": "nmqihou0u_1kv_fm4g",
+      "label": "plays",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihphz6_1sy_46a0",
+      "source": "nmqihpgu8_1s9_52vg",
+      "target": "nmqihpfhr_1r2_dltu",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpib3_1sz_2upn",
+      "source": "nmqihpggs_1rw_iev5",
+      "target": "nmqihphi2_1sv_bp20",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpiio_1t0_cry9",
+      "source": "nmqihpg99_1rs_92en",
+      "target": "nmqihou0u_1l3_kov8",
+      "label": "plays",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpiio_1t1_81ne",
+      "source": "nmqihpg99_1rs_92en",
+      "target": "nmqihou0u_1ks_hgnx",
+      "label": "kin",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpirp_1t3_jxyi",
+      "source": "nmqihou0u_1ks_hgnx",
+      "target": "nmqihpiol_1t2_e5zt",
+      "label": "at",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpirp_1t4_g5d8",
+      "source": "nmqihpiol_1t2_e5zt",
+      "target": "nmqihphmg_1sw_2okg",
+      "label": "road",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpirp_1t5_21uc",
+      "source": "nmqihphmg_1sw_2okg",
+      "target": "nmqihpfhr_1r2_dltu",
+      "label": "road",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpirp_1t6_b8hw",
+      "source": "nmqihpfhr_1r2_dltu",
+      "target": "nmqihphi2_1sv_bp20",
+      "label": "road",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpiv8_1t7_3qpw",
+      "source": "nmqihpg99_1rr_kxzu",
+      "target": "nmqihphmg_1sw_2okg",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpixg_1t8_6m1w",
+      "source": "nmqihpg0b_1rg_ew44",
+      "target": "nmqihou0u_1l2_37p3",
+      "label": "plays",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpixg_1t9_8mfd",
+      "source": "nmqihou0u_1ks_hgnx",
+      "target": "nmqihpg0b_1rg_ew44",
+      "label": "kin",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpjbc_1ta_ds6e",
+      "source": "nmqihph8k_1sr_6gjp",
+      "target": "nmqihpiol_1t2_e5zt",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpjih_1tb_gp3q",
+      "source": "nmqihpfvq_1rb_e1ee",
+      "target": "nmqihou0u_1kw_gwn7",
+      "label": "plays",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpjih_1tc_kn3a",
+      "source": "nmqihpfvq_1rb_e1ee",
+      "target": "nmqihpg0b_1rg_ew44",
+      "label": "kin",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpjwn_1td_49yh",
+      "source": "nmqihpgy5_1sc_6pez",
+      "target": "nmqihphmg_1sw_2okg",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    },
+    {
+      "id": "emqihpk09_1te_imhl",
+      "source": "nmqihpg0b_1rf_hhl6",
+      "target": "nmqihphi2_1sv_bp20",
+      "label": "traverses",
+      "directed": true,
+      "props": {}
+    }
+  ]
+}

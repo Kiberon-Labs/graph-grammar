@@ -1,0 +1,60 @@
+{
+  "name": "graph-grammar-react",
+  "version": "1.0.0",
+  "description": "Embeddable React editor for the graph-grammar engine: a complete visual graph-rewriting workbench (rule editor + live D3 canvas) and the building blocks to compose your own.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "graph-grammar",
+    "graph-rewriting",
+    "react",
+    "editor",
+    "d3",
+    "visualization",
+    "graph-editor"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./styles.css"
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "styles.css",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "graph-grammar": "workspace:^"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^3.0.0",
+    "d3": "^7.9.0",
+    "elkjs": "^0.11.1",
+    "lucide-react": "^1.20.0",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "graph-grammar": "workspace:^",
+    "@types/d3": "^7.4.3",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.9"
+  }
+}

@@ -1,0 +1,54 @@
+---
+title: Graph Grammar
+description: A fast, framework-agnostic graph rewriting / graph grammar engine for TypeScript.
+template: splash
+hero:
+  tagline: Author rewrite rules, match subgraphs, and transform graphs , a fast, framework-agnostic engine for TypeScript.
+  actions:
+    - text: Get started
+      link: /getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Core concepts
+      link: /explanation/concepts/
+      icon: open-book
+    - text: Kiberon Labs
+      link: https://kiberonlabs.com
+      icon: external
+      variant: minimal
+      attrs:
+        target: _blank
+        rel: noopener
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Why graph-grammar
+
+<CardGrid stagger>
+  <Card title="Framework-agnostic" icon="puzzle">
+    The engine has no DOM or framework dependencies , just `zod`. Use it in Node,
+    the browser, or a worker.
+  </Card>
+  <Card title="Fast" icon="rocket">
+    O(1) label buckets, an allocation-free VF2-style matcher, and single-match
+    rewriting keep parallel-growth grammars **O(N)** , ~116,000 steps/s to 50k nodes.
+  </Card>
+  <Card title="Expressive rules" icon="setting">
+    Property predicates, negative application conditions, edge embedding, property
+    expressions, and four application strategies.
+  </Card>
+  <Card title="Validated I/O" icon="approve-check">
+    Import and export grammars as JSON with runtime `zod` validation built in.
+  </Card>
+</CardGrid>
+
+## Install
+
+```sh
+npm install graph-grammar
+```
+
+---
+
+graph-grammar is built and maintained by [Kiberon Labs](https://kiberonlabs.com).

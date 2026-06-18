@@ -1,0 +1,14 @@
+/* Global page styles for the standalone demo only. These deliberately live in
+   the app, NOT in the `graph-grammar-react` package , the package never styles
+   `html`/`body`/`#app`, so embedding it can't affect a host page. The editor
+   fills whatever box you give it; here we give the mount the full viewport. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #0d1117;
+}
+
+#app {
+  height: 100vh;
+}
