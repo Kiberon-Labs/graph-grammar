@@ -1,6 +1,6 @@
 {
   "name": "graph-grammar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast, framework-agnostic graph rewriting / graph grammar engine: pattern matching (subgraph isomorphism), rule application with edge embedding, NACs, property expressions, and stochastic/parallel application strategies.",
   "type": "module",
   "license": "MIT",
@@ -14,6 +14,20 @@
     "rewriting",
     "generative"
   ],
+  "author": {
+    "name": "Kiberon Labs",
+    "email": "info@kiberonlabs.com",
+    "url": "https://kiberonlabs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kiberon-Labs/graph-grammar",
+    "directory": "packages/graph-grammar"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
   "sideEffects": false,
   "exports": {
     ".": {

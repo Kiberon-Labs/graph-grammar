@@ -1,9 +1,14 @@
 {
   "name": "graph-grammar-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Embeddable React editor for the graph-grammar engine: a complete visual graph-rewriting workbench (rule editor + live D3 canvas) and the building blocks to compose your own.",
   "type": "module",
   "license": "MIT",
+  "author": {
+    "name": "Kiberon Labs",
+    "email": "info@kiberonlabs.com",
+    "url": "https://kiberonlabs.com"
+  },
   "keywords": [
     "graph-grammar",
     "graph-rewriting",
@@ -16,6 +21,15 @@
   "sideEffects": [
     "*.css"
   ],
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/Kiberon-Labs/graph-grammar",
+    "directory": "packages/graph-grammar-react"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

@@ -16,7 +16,7 @@ jobs:
   release:
     environment: npm
     # Prevents changesets action from creating a PR on forks
-    if: github.repository == 'kiberon-labs/behave-graph'
+    if: github.repository == 'Kiberon-Labs/graph-grammar'
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -54,3 +54,37 @@ jobs:
           # # https://github.com/changesets/changesets/issues/1152#issuecomment-3190884868
           NPM_TOKEN: ${{ SECRETS.NPM_TOKEN}}
 
+      # Announce to the company Slack, but only when packages were actually
+      # published this run (changesets sets `published=true` only then — not when
+      # it merely opens the "Version Packages" PR).
+      - name: Notify company Slack of published packages
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL secret not set; skipping Slack notification."
+            exit 0
+          fi
+          # `publishedPackages` is a JSON array of { name, version }. Turn it into
+          # a bullet list of npm links, then build the payload with jq so all
+          # escaping (newlines, special chars) is handled safely.
+          PACKAGE_LINES=$(echo "$PUBLISHED_PACKAGES" \
+            | jq -r '.[] | "• <https://www.npmjs.com/package/\(.name)/v/\(.version)|\(.name)@\(.version)>"')
+          PAYLOAD=$(jq -n \
+            --arg pkgs "$PACKAGE_LINES" \
+            --arg run "$RUN_URL" \
+            --arg repo "${{ github.repository }}" \
+            '{
+              channel: "#packages",
+              username: "GitHub Actions",
+              icon_emoji: ":package:",
+              text: ("New release published for " + $repo),
+              blocks: [
+                { type: "section", text: { type: "mrkdwn", text: (":rocket: *New packages published from " + $repo + "*\n" + $pkgs) } },
+                { type: "context", elements: [ { type: "mrkdwn", text: ("<" + $run + "|View workflow run>") } ] }
+              ]
+            }')
+          curl -fsS -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL"

@@ -1,6 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
+import sitemap from '@astrojs/sitemap'
+
+// Kiberon Labs is the canonical author/publisher of the site. Surfaced as
+// <meta>/<link> author tags and schema.org JSON-LD for search engines & LLMs.
+const AUTHOR = { name: 'Kiberon Labs', url: 'https://kiberonlabs.com' }
+const SITE_DESCRIPTION =
+  'A fast, framework-agnostic graph rewriting / graph grammar engine for TypeScript.'
 
 // Deploy target is supplied by the GitHub Pages workflow via env, so this same
 // config works for local dev (root), the canonical repo, and forks without edits:
@@ -19,14 +26,43 @@ export default defineConfig({
   site,
   base,
   integrations: [
+    // Explicitly owned (Starlight would otherwise add @astrojs/sitemap with
+    // defaults). Only emits when `site` is set — provided by the Pages deploy.
+    sitemap(),
     starlight({
       title: 'Graph Grammar',
-      description:
-        'A fast, framework-agnostic graph rewriting / graph grammar engine for TypeScript.',
+      description: SITE_DESCRIPTION,
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/kiberonlabs/graph-grammar' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/Kiberon-Labs/graph-grammar' },
+        { icon: 'discord', label: 'Community Discord', href: 'https://discord.gg/99J9YSsHv' },
+      ],
+      // Point search engines / social cards / LLMs at Kiberon Labs as the
+      // canonical author and publisher of the documentation.
+      head: [
+        { tag: 'meta', attrs: { name: 'author', content: AUTHOR.name } },
+        { tag: 'meta', attrs: { name: 'publisher', content: AUTHOR.name } },
+        { tag: 'link', attrs: { rel: 'author', href: AUTHOR.url } },
+        { tag: 'meta', attrs: { property: 'og:site_name', content: 'Graph Grammar' } },
+        {
+          tag: 'script',
+          attrs: { type: 'application/ld+json' },
+          content: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Graph Grammar',
+            description: SITE_DESCRIPTION,
+            author: { '@type': 'Organization', name: AUTHOR.name, url: AUTHOR.url },
+            publisher: { '@type': 'Organization', name: AUTHOR.name, url: AUTHOR.url },
+          }),
+        },
       ],
       components: {
+        // Add per-page Open Graph / Twitter card images to the default <head>.
+        Head: './src/components/Head.astro',
+        // Default the site to dark mode (overrides only the no-preference
+        // fallback; explicit light/dark/auto choices still win and persist).
+        ThemeProvider: './src/components/ThemeProvider.astro',
+        ThemeSelect: './src/components/ThemeSelect.astro',
         // Co-branded header logos (Kiberon Labs × graph-grammar) beside the title.
         SiteTitle: './src/components/SiteTitle.astro',
         // Append a "Made by Kiberon Labs" backlink below the default footer on
@@ -36,10 +72,9 @@ export default defineConfig({
       sidebar: [
         // External backlink to the company site. Starlight detects the absolute
         // URL and links out verbatim (no `base` prepended).
-        { label: 'Kiberon Labs ↗', link: 'https://kiberonlabs.com', attrs: { target: '_blank', rel: 'noopener' } },
         // Base-relative; Starlight prepends the configured `base` → e.g. /graph-grammar/app/.
         // The demo app is assembled at <base>app/ by the Pages workflow.
-        { label: 'Live demo ↗', link: '/app/', attrs: { target: '_blank', rel: 'noopener' } },
+        { label: 'Live demo', link: '/app/', attrs: { target: '_blank', rel: 'noopener' } },
         {
           label: 'Start here',
           items: [
