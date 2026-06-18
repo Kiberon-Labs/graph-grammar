@@ -21,7 +21,7 @@
   "sideEffects": [
     "*.css"
   ],
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/Kiberon-Labs/graph-grammar",
     "directory": "packages/graph-grammar-react"

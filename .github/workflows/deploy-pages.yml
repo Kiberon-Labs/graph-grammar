@@ -56,7 +56,7 @@ jobs:
       - name: Build site + demo app
         run: pnpm run build
         env:
-          PAGES_SITE: ${{ steps.pages.outputs.origin }}
+          PAGES_SITE: gg.kiberonlabs.com
           PAGES_BASE: ${{ steps.pages.outputs.base_path }}
 
       - name: Assemble Pages artifact
