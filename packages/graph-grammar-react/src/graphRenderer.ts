@@ -54,6 +54,9 @@ export class GraphRenderer {
   private layoutKind: LayoutKind = 'force'
   private nodes: LayoutNode[] = []
   private links: Link[] = []
+  /** Every node ever synced (by id), kept across syncs so a node filtered out of
+   *  the layout in respread mode retains its position when it comes back. */
+  private known = new Map<string, LayoutNode>()
 
   private transform = { k: 1, x: 0, y: 0 }
   private dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -75,6 +78,15 @@ export class GraphRenderer {
   /** rubber-band marquee in screen px while shift-dragging empty space. */
   private marquee: { x0: number; y0: number; x1: number; y1: number } | null = null
   private showLabels = true
+  /** Edge / node labels the user has switched off. Matching elements are neither
+   *  drawn nor hit-tested. An edge also disappears when either endpoint's label is
+   *  hidden. By default this is a pure display filter (the elements stay in the
+   *  force layout, so toggling never reshuffles positions); when `respread` is on
+   *  they are dropped from the layout too, so the graph re-settles around what's
+   *  left. */
+  private hiddenEdgeLabels = new Set<string>()
+  private hiddenNodeLabels = new Set<string>()
+  private respread = false
   private previewOn = true
   /** When true, the force sim re-settles whenever a rule rewires edges (bonds
    *  forming/breaking), not only when the node set changes. Turn off to keep the
@@ -216,6 +228,106 @@ export class GraphRenderer {
     return this.showLabels
   }
 
+  /** Replace the set of switched-off edge labels. */
+  setHiddenEdgeLabels (labels: Iterable<string>) {
+    this.hiddenEdgeLabels = new Set(labels)
+    this.applyFilterChange()
+  }
+
+  /** Replace the set of switched-off node labels (also hides their edges). */
+  setHiddenNodeLabels (labels: Iterable<string>) {
+    this.hiddenNodeLabels = new Set(labels)
+    this.applyFilterChange()
+  }
+
+  getHiddenEdgeLabels (): Set<string> {
+    return new Set(this.hiddenEdgeLabels)
+  }
+
+  getHiddenNodeLabels (): Set<string> {
+    return new Set(this.hiddenNodeLabels)
+  }
+
+  /** When on, hidden nodes/edges are removed from the force layout so the graph
+   *  re-spreads around what remains. When off, hiding is display-only. */
+  setRespread (v: boolean) {
+    if (this.respread === v) return
+    this.respread = v
+    this.syncFromEngine(false) // rebuild the layout set for the new mode
+    this.layout.run(true) // re-settle either way (drop hidden, or fold them back in)
+    this.fitAfterSettle = true
+  }
+
+  getRespread () {
+    return this.respread
+  }
+
+  /** Drop any selection that just became hidden, then either re-settle the layout
+   *  (respread) or simply repaint (display-only filter). */
+  private applyFilterChange () {
+    this.clearHiddenSelection()
+    if (this.respread) {
+      this.syncFromEngine(false)
+      this.layout.run(true)
+    } else {
+      this.requestDraw()
+    }
+  }
+
+  /** Clear the node/edge selection if it points at a now-hidden element, so the
+   *  inspector doesn't dangle on something invisible. */
+  private clearHiddenSelection () {
+    const idx = this.app.engine.index
+    if (this.selectedId) {
+      const n = idx.nodes.get(this.selectedId)
+      if (n && this.hiddenNodeLabels.has(n.label)) this.select(null)
+    }
+    if (this.selectedEdgeId) {
+      const e = idx.edges.get(this.selectedEdgeId)
+      if (e && this.isEdgeLabelOrEndpointHidden(e)) {
+        this.selectedEdgeId = null
+        this.handlers.onSelectEdge(null)
+      }
+    }
+  }
+
+  private isNodeLabelHidden (label: string): boolean {
+    return this.hiddenNodeLabels.has(label)
+  }
+
+  /** An edge is hidden by its own label or by either endpoint's label. */
+  private isEdgeLabelOrEndpointHidden (e: GEdge): boolean {
+    if (this.hiddenEdgeLabels.has(e.label)) return true
+    const idx = this.app.engine.index
+    const s = idx.nodes.get(e.source)
+    const t = idx.nodes.get(e.target)
+    return !!((s && this.isNodeLabelHidden(s.label)) || (t && this.isNodeLabelHidden(t.label)))
+  }
+
+  private isLinkHidden (l: Link): boolean {
+    return this.hiddenEdgeLabels.has(l.edge.label) ||
+      this.isNodeLabelHidden(l.source.label) ||
+      this.isNodeLabelHidden(l.target.label)
+  }
+
+  /** Distinct node / edge labels in the host graph with counts, for the filter
+   *  UI. Sorted by descending count, then label. */
+  nodeLabelCounts (): Array<{ label: string; count: number }> {
+    return this.labelCounts(this.app.engine.graph.nodes)
+  }
+
+  edgeLabelCounts (): Array<{ label: string; count: number }> {
+    return this.labelCounts(this.app.engine.graph.edges)
+  }
+
+  private labelCounts (items: Array<{ label: string }>): Array<{ label: string; count: number }> {
+    const counts = new Map<string, number>()
+    for (const it of items) counts.set(it.label, (counts.get(it.label) ?? 0) + 1)
+    return [...counts]
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+  }
+
   setPreview (v: boolean) {
     this.previewOn = v
     this.updateMatchPreview()
@@ -314,28 +426,39 @@ export class GraphRenderer {
   // ------------------------------------------------------------- sim sync
   private syncFromEngine (reheat: boolean) {
     const g = this.app.engine.graph
-    const byId = new Map(this.nodes.map((n) => [n.id, n]))
-    let structural = g.nodes.length !== byId.size
-    this.nodes = g.nodes.map((n): LayoutNode => {
-      const existing = byId.get(n.id)
-      if (existing) {
-        existing.label = n.label
-        existing.props = n.props
-        return existing
+    // `known` persists across syncs and holds *every* node (hidden or not) so a
+    // node filtered out of the layout in respread mode keeps its position for when
+    // it folds back in.
+    const seen = new Set<string>()
+    let structural = false
+    const fullNodes: LayoutNode[] = []
+    for (const n of g.nodes) {
+      seen.add(n.id)
+      let ln = this.known.get(n.id)
+      if (ln) {
+        ln.label = n.label
+        ln.props = n.props
+      } else {
+        structural = true
+        ln = n as LayoutNode
+        if (ln.x == null) ln.x = (Math.random() - 0.5) * 200
+        if (ln.y == null) ln.y = (Math.random() - 0.5) * 200
+        this.known.set(n.id, ln)
       }
-      structural = true
-      if (n.x == null) n.x = (Math.random() - 0.5) * 200
-      if (n.y == null) n.y = (Math.random() - 0.5) * 200
-      return n
-    })
-    const nodeById = new Map(this.nodes.map((n) => [n.id, n]))
-    this.links = []
-    for (const e of g.edges) {
-      const s = nodeById.get(e.source)
-      const t = nodeById.get(e.target)
-      if (s && t) this.links.push({ source: s, target: t, edge: e })
+      fullNodes.push(ln)
     }
-    this.assignParallelOffsets()
+    if (this.known.size !== seen.size) { // some nodes were removed
+      for (const id of [...this.known.keys()]) if (!seen.has(id)) this.known.delete(id)
+      structural = true
+    }
+
+    const fullLinks: Link[] = []
+    for (const e of g.edges) {
+      const s = this.known.get(e.source)
+      const t = this.known.get(e.target)
+      if (s && t) fullLinks.push({ source: s, target: t, edge: e })
+    }
+
     // Edges forming/breaking is a topology change too: rules that conserve the
     // node set but rewire bonds (e.g. the chemistry grammars) still alter the
     // spring graph. When enabled, treat an edge-set change as structural so the
@@ -345,6 +468,19 @@ export class GraphRenderer {
     if (!edgesChanged) for (const e of g.edges) if (!this.prevEdgeIds.has(e.id)) { edgesChanged = true; break }
     this.prevEdgeIds = new Set(g.edges.map((e) => e.id))
     if (this.reheatOnEdgeChange && edgesChanged) structural = true
+
+    // In respread mode the layout only sees the visible subgraph, so hiding a
+    // label re-settles the rest. Otherwise hiding is display-only (everything
+    // stays in the sim) and the draw loop just skips the hidden elements.
+    if (this.respread) {
+      this.nodes = fullNodes.filter((n) => !this.isNodeLabelHidden(n.label))
+      this.links = fullLinks.filter((l) => !this.isLinkHidden(l))
+    } else {
+      this.nodes = fullNodes
+      this.links = fullLinks
+    }
+
+    this.assignParallelOffsets()
     this.layout.setGraph(this.nodes, this.links)
     // (Re)run when the node OR edge set actually changed — pure label/prop edits
     // (same nodes, same edges) still don't re-lay-out the whole graph.
@@ -431,6 +567,7 @@ export class GraphRenderer {
     let best: GNode | null = null
     let bestD = r * r
     for (const n of this.nodes) {
+      if (this.isNodeLabelHidden(n.label)) continue // hidden nodes aren't selectable
       const dx = (n.x ?? 0) - g.x
       const dy = (n.y ?? 0) - g.y
       const d = dx * dx + dy * dy
@@ -450,6 +587,7 @@ export class GraphRenderer {
     let best: GEdge | null = null
     let bestD = tol2
     for (const l of this.links) {
+      if (this.isLinkHidden(l)) continue // hidden edges aren't selectable
       const gm = this.edgeGeom(l)
       const d = gm.curved
         ? this.distToQuad2(g.x, g.y, gm)
@@ -898,6 +1036,7 @@ export class GraphRenderer {
     const showEdgeLabels = this.showLabels && this.transform.k > 0.8
     const anyDimmed = this.dimmedIds.size > 0
     for (const l of this.links) {
+      if (this.isLinkHidden(l)) continue // switched off in the filter (own label or an endpoint's)
       // An edge fades when either endpoint is dimmed, so it recedes with them.
       ctx.globalAlpha = anyDimmed && (this.dimmedIds.has(l.source.id) || this.dimmedIds.has(l.target.id)) ? DIM_EDGE : 1
       const created = highlightOn && hl!.created.has(l.edge.id)
@@ -939,6 +1078,7 @@ export class GraphRenderer {
     const showMatch = this.previewOn && this.matchedNodes.size > 0
     const resolve = this.app.nodeStyle
     for (const n of this.nodes) {
+      if (this.isNodeLabelHidden(n.label)) continue // switched off in the filter
       const st = resolveNodeStyle(n, resolve)
       const radius = st.radius ?? 11
       const created = highlightOn && hl!.created.has(n.id)

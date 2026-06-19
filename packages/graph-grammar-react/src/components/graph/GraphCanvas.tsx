@@ -30,6 +30,9 @@ export function GraphCanvas ({ active, nodeStyle }: { active: boolean; nodeStyle
   const [showLabels, setShowLabels] = useState(true)
   const [preview, setPreview] = useState(true)
   const [reflow, setReflow] = useState(true)
+  const [hiddenEdges, setHiddenEdges] = useState<Set<string>>(new Set())
+  const [hiddenNodes, setHiddenNodes] = useState<Set<string>>(new Set())
+  const [respread, setRespread] = useState(false)
 
   // keep a ref to the latest brush so the context-menu closure stays fresh
   const brushRef = useRef(brush)
@@ -147,6 +150,30 @@ export function GraphCanvas ({ active, nodeStyle }: { active: boolean; nodeStyle
     setReflow(v)
     rendererRef.current?.setReheatOnEdgeChange(v)
   }
+  const setHiddenEdgesBoth = (next: Set<string>) => {
+    setHiddenEdges(next)
+    rendererRef.current?.setHiddenEdgeLabels(next)
+  }
+  const setHiddenNodesBoth = (next: Set<string>) => {
+    setHiddenNodes(next)
+    rendererRef.current?.setHiddenNodeLabels(next)
+  }
+  const setRespreadBoth = (v: boolean) => {
+    setRespread(v)
+    rendererRef.current?.setRespread(v)
+  }
+
+  // Distinct node / edge labels (with counts) for the filter. Recomputed whenever
+  // the graph changes (`useAppEvent('graph')` re-renders this component).
+  const labelCounts = (items: Array<{ label: string }>) => {
+    const m = new Map<string, number>()
+    for (const it of items) m.set(it.label, (m.get(it.label) ?? 0) + 1)
+    return [...m]
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+  }
+  const nodeLabels = labelCounts(app.engine.graph.nodes)
+  const edgeLabels = labelCounts(app.engine.graph.edges)
 
   const idx = app.engine.index
   const liveSelected = selected && idx.nodes.has(selected.id) ? selected : null
@@ -166,6 +193,14 @@ export function GraphCanvas ({ active, nodeStyle }: { active: boolean; nodeStyle
         setPreview={setPreviewBoth}
         reflow={reflow}
         setReflow={setReflowBoth}
+        nodeLabels={nodeLabels}
+        hiddenNodes={hiddenNodes}
+        setHiddenNodes={setHiddenNodesBoth}
+        edgeLabels={edgeLabels}
+        hiddenEdges={hiddenEdges}
+        setHiddenEdges={setHiddenEdgesBoth}
+        respread={respread}
+        setRespread={setRespreadBoth}
       />
       <GraphShortcuts />
       {rendererRef.current && (liveSelected || liveEdge) && (
