@@ -1,6 +1,6 @@
 {
   "name": "graph-grammar-react",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Embeddable React editor for the graph-grammar engine: a complete visual graph-rewriting workbench (rule editor + live D3 canvas) and the building blocks to compose your own.",
   "type": "module",
   "license": "MIT",
