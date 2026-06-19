@@ -1,13 +1,33 @@
 [package]
-name = "graph-grammar-native"
+name = "graph-grammar"
 version = "1.0.0"
 edition = "2021"
-publish = false
 license = "MIT"
-description = "C-ABI native library exposing the graph-grammar rewrite engine to non-TypeScript callers (Phase 1 vertical slice)."
+description = "C-ABI + Rust graph-rewriting engine: deterministic and seeded-stochastic subgraph matching and rule application, ported from the graph-grammar TypeScript engine and verified bit-for-bit against it."
+repository = "https://github.com/Kiberon-Labs/graph-grammar"
+homepage = "https://kiberon-labs.github.io/graph-grammar/"
+documentation = "https://docs.rs/graph-grammar"
+readme = "README.md"
+keywords = ["graph", "graph-rewriting", "grammar", "rewriting", "ffi"]
+categories = ["algorithms", "data-structures", "simulation"]
+# Allowlist what gets packaged for crates.io. schema/graph-grammar.schema.json is
+# `include_str!`'d (required to compile); the cbindgen-generated header ships for
+# C consumers. Dev-only trees (tests/, conformance/, bindings/, scripts/, target/)
+# are deliberately left out.
+include = [
+    "src/**/*.rs",
+    "build.rs",
+    "cbindgen.toml",
+    "schema/graph-grammar.schema.json",
+    "include/graph_grammar.h",
+    "README.md",
+    "LICENSE",
+]
 
 [lib]
-name = "graph_grammar_native"
+# Drives both the Rust import path (`use graph_grammar::…`) and the cdylib
+# artifact name (graph_grammar.dll / libgraph_grammar.so / libgraph_grammar.dylib).
+name = "graph_grammar"
 # cdylib  -> the .dll/.so/.dylib loaded by C#, Python, C++, …
 # rlib     -> lets the Rust integration tests link the crate directly
 crate-type = ["cdylib", "rlib"]
@@ -24,5 +44,14 @@ jsonschema = { version = "0.46.5", default-features = false }
 [dev-dependencies]
 serde_json = "1"
 
+[features]
+# Regenerate the C header (include/graph_grammar.h) from the FFI surface via
+# cbindgen. OFF by default so plain `cargo build`, downstream Rust consumers,
+# docs.rs, and `cargo publish` never compile cbindgen or write into the source
+# tree (which `cargo publish` rejects). The committed header is the source of
+# truth; regenerate it with `cargo build --features generate-header`.
+generate-header = ["dep:cbindgen"]
+
 [build-dependencies]
-cbindgen = "0.27"
+# Optional: only pulled in (and run) under the `generate-header` feature.
+cbindgen = { version = "0.27", optional = true }

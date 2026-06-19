@@ -1,11 +1,15 @@
-//! Build script: regenerate the C header (`include/graph_grammar.h`) from the
-//! `#[no_mangle] extern "C"` surface of `src/lib.rs` on every build via cbindgen.
-//! A failure here is non-fatal (warns only) so the library still builds if the
-//! header generator is unavailable.
+//! Build script. Under the `generate-header` feature it regenerates the C header
+//! (`include/graph_grammar.h`) from the `#[no_mangle] extern "C"` surface of
+//! `src/lib.rs` via cbindgen. The feature is OFF by default so plain `cargo
+//! build`, downstream Rust consumers, docs.rs, and `cargo publish` never compile
+//! cbindgen or modify the (packaged) source tree — the committed header is the
+//! source of truth. Regenerate it with `cargo build --features generate-header`.
+//! A cbindgen failure is non-fatal (warns only) so the library still builds.
 
-use std::path::Path;
-
+#[cfg(feature = "generate-header")]
 fn main() {
+    use std::path::Path;
+
     let crate_dir = std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR");
     let out = Path::new(&crate_dir).join("include").join("graph_grammar.h");
     if let Some(parent) = out.parent() {
@@ -23,3 +27,6 @@ fn main() {
         }
     }
 }
+
+#[cfg(not(feature = "generate-header"))]
+fn main() {}

@@ -28,10 +28,9 @@ Grab the archive for your platform from the project's
 
 | Platform | Asset | Library file |
 | --- | --- | --- |
-| Windows x64 | `…-windows-x64.zip` | `graph_grammar_native.dll` |
-| Linux x64 | `…-linux-x64.tar.gz` | `libgraph_grammar_native.so` |
-| macOS (Apple silicon) | `…-macos-arm64.tar.gz` | `libgraph_grammar_native.dylib` |
-| macOS (Intel) | `…-macos-x64.tar.gz` | `libgraph_grammar_native.dylib` |
+| Windows x64 | `…-windows-x64.zip` | `graph_grammar.dll` |
+| Linux x64 | `…-linux-x64.tar.gz` | `libgraph_grammar.so` |
+| macOS (Apple silicon) | `…-macos-arm64.tar.gz` | `libgraph_grammar.dylib` |
 
 Each archive contains the library, the generated C header
 (`graph_grammar.h`), the JSON Schema (`graph-grammar.schema.json`), and the
@@ -104,7 +103,7 @@ Using the standard-library `ctypes` ,no third-party packages:
 ```python
 import ctypes, json
 
-lib = ctypes.CDLL("./libgraph_grammar_native.so")  # .dll / .dylib on Win/macOS
+lib = ctypes.CDLL("./libgraph_grammar.so")  # .dll / .dylib on Win/macOS
 lib.gg_apply_rule_seeded.restype = ctypes.c_int
 lib.gg_apply_rule_seeded.argtypes = [
     ctypes.c_char_p, ctypes.c_char_p, ctypes.c_uint32, ctypes.POINTER(ctypes.c_void_p),
@@ -144,7 +143,7 @@ using System.Text;
 
 static class Gg
 {
-    const string Lib = "graph_grammar_native"; // resolves to .dll/.so/.dylib
+    const string Lib = "graph_grammar"; // resolves to .dll/.so/.dylib
 
     [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
     static extern int gg_apply_rule_seeded(byte[] rule, byte[] graph, uint seed, out IntPtr outJson);
@@ -178,7 +177,7 @@ links the shared library. cgo requires a C compiler and `CGO_ENABLED=1`.
 package main
 
 /*
-#cgo LDFLAGS: -L. -lgraph_grammar_native
+#cgo LDFLAGS: -L. -lgraph_grammar
 #include <stdlib.h>
 
 int  gg_apply_rule_seeded(const char* rule_json, const char* graph_json, unsigned int seed, char** out_json);

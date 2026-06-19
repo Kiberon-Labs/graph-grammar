@@ -1,4 +1,4 @@
-//! graph-grammar-native ,a C-ABI `cdylib` exposing the graph-grammar rewrite
+//! graph-grammar ,a Rust crate + C-ABI `cdylib` exposing the graph-grammar rewrite
 //! engine to non-TypeScript callers. JSON in / JSON out, validated against the
 //! engine's zod-derived schema, with behaviour (including the seeded RNG)
 //! reproduced bit-for-bit and verified by the conformance suite.

@@ -1,5 +1,5 @@
 """
-Python binding for graph-grammar-native (Phase 1 slice), via ctypes.
+Python binding for the graph-grammar native library via ctypes.
 
 This is both a reusable thin wrapper (`GraphGrammar`) and a runnable conformance
 check that loads the real .dll, applies the relabel fixture, and compares the
@@ -8,7 +8,7 @@ result with the TypeScript engine's expected output.
     python bindings/python/graph_grammar.py
 
 The .dll is located via the GG_DLL env var, else by walking up to
-`target/debug/graph_grammar_native.dll`.
+`target/debug/graph_grammar.dll`.
 """
 from __future__ import annotations
 
@@ -24,10 +24,10 @@ def _find_dll() -> str:
     if env:
         return env
     names = {
-        "win32": "graph_grammar_native.dll",
-        "darwin": "libgraph_grammar_native.dylib",
+        "win32": "graph_grammar.dll",
+        "darwin": "libgraph_grammar.dylib",
     }
-    name = names.get(sys.platform, "libgraph_grammar_native.so")
+    name = names.get(sys.platform, "libgraph_grammar.so")
     for base in [Path(__file__).resolve(), *Path(__file__).resolve().parents]:
         cand = base / "target" / "debug" / name
         if cand.exists():
@@ -155,7 +155,7 @@ def _main() -> int:
         return 1
 
     gg = GraphGrammar()
-    print(f"graph-grammar-native version: {gg.version()}")
+    print(f"graph-grammar version: {gg.version()}")
 
     names = sorted(p.name[: -len(".input.json")] for p in fixtures.glob("*.input.json"))
     if not names:

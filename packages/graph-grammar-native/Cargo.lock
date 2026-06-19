@@ -296,8 +296,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "graph-grammar-native"
-version = "0.1.0"
+name = "graph-grammar"
+version = "1.0.0"
 dependencies = [
  "cbindgen",
  "indexmap",

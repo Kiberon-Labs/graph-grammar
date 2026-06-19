@@ -1,12 +1,45 @@
-# graph-grammar-native
+# graph-grammar
 
-A native, C-ABI shared library (`.dll` / `.so` / `.dylib`) that exposes the
-[`graph-grammar`](../graph-grammar) rewrite engine to **non-TypeScript** callers
-(C#, Python, C++, …) with **no Node/JS runtime** required.
+A Rust crate **and** native C-ABI shared library (`.dll` / `.so` / `.dylib`)
+that runs the **graph-grammar** rewrite engine — call it from Rust directly, or
+from C#, Python, C/C++, and any FFI-capable language with **no Node/JS runtime**.
+It is a faithful port of the
+[TypeScript `graph-grammar` engine](https://www.npmjs.com/package/graph-grammar),
+verified bit-for-bit against it.
 
 The wire format is **JSON in / JSON out**, mirroring the TS engine's own
-`exportGraph` / `importGrammar` boundary, so the FFI surface stays minimal and
+`exportGraph` / `importGrammar` boundary, so the API surface stays minimal and
 stable.
+
+## Use as a Rust crate
+
+Published on [crates.io](https://crates.io/crates/graph-grammar) — add it to a
+Rust project to drive the engine directly, with no FFI and no C header:
+
+```sh
+cargo add graph-grammar
+```
+
+```rust
+use graph_grammar::{apply_rule, ApiError};
+
+fn main() -> Result<(), ApiError> {
+    // Rule and graph are JSON, in the shape defined by
+    // schema/graph-grammar.schema.json (the same the TS engine exports/imports).
+    let rule = r#"{ "id": "r1", "name": "relabel", "lhs": …, "rhs": … }"#;
+    let graph = r#"{ "nodes": [ … ], "edges": [ … ] }"#;
+
+    // Returns a JSON envelope: { "applied", "graph", "createdNodes", … }.
+    let result = apply_rule(rule, graph)?;
+    println!("{result}");
+    Ok(())
+}
+```
+
+The crate also exposes `apply_rule_seeded` (seeded-stochastic match selection +
+random `PropExpr`s, bit-for-bit vs the TS engine) and the stateful `Engine`
+(`run_grammar` / multi-step runs). Behaviour is verified against the real
+TypeScript engine by the [conformance suite](#conformance).
 
 ## C ABI
 
@@ -73,9 +106,15 @@ toolchain needs the VS C++ build tools + Windows SDK (already used to link the
 `cdylib`).
 
 ```sh
-cargo build              # -> target/debug/graph_grammar_native.dll (+ include/graph_grammar.h)
-cargo build --release    # optimized
+cargo build                              # -> target/debug/graph_grammar.dll
+cargo build --release                    # optimized
+cargo build --features generate-header   # also regenerate include/graph_grammar.h via cbindgen
 ```
+
+The C header is committed at [`include/graph_grammar.h`](include/graph_grammar.h)
+and is the source of truth. cbindgen runs only under the `generate-header`
+feature (off by default), so ordinary builds — and `cargo publish` — never
+recompile the header generator or touch the source tree.
 
 ## Conformance
 
@@ -109,6 +148,6 @@ dotnet run --project bindings/csharp
 Both should print:
 
 ```
-graph-grammar-native version: 0.1.0
+graph-grammar version: 1.0.0
 PASS [relabel]: native DLL output matches the TypeScript engine.
 ```

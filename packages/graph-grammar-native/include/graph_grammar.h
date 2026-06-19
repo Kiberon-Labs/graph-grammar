@@ -1,5 +1,5 @@
-#ifndef GRAPH_GRAMMAR_NATIVE_H
-#define GRAPH_GRAMMAR_NATIVE_H
+#ifndef GRAPH_GRAMMAR_H
+#define GRAPH_GRAMMAR_H
 
 #pragma once
 
@@ -84,4 +84,4 @@ int32_t gg_engine_graph(Engine *eng, char **out_json);
  */
 void gg_engine_free(Engine *eng);
 
-#endif  /* GRAPH_GRAMMAR_NATIVE_H */
+#endif  /* GRAPH_GRAMMAR_H */

@@ -29,9 +29,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: windows-latest, target: x86_64-pc-windows-msvc,    name: windows-x64, lib: graph_grammar_native.dll }
-          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu,  name: linux-x64,   lib: libgraph_grammar_native.so }
-          - { os: macos-latest,   target: aarch64-apple-darwin,      name: macos-arm64, lib: libgraph_grammar_native.dylib }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc,    name: windows-x64, lib: graph_grammar.dll }
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu,  name: linux-x64,   lib: libgraph_grammar.so }
+          - { os: macos-latest,   target: aarch64-apple-darwin,      name: macos-arm64, lib: libgraph_grammar.dylib }
     steps:
       - uses: actions/checkout@v4
 
@@ -126,6 +126,51 @@ jobs:
             | Windows x64 | `…-windows-x64.zip` |
             | Linux x64 | `…-linux-x64.tar.gz` |
             | macOS (Apple silicon) | `…-macos-arm64.tar.gz` |
-            | macOS (Intel) | `…-macos-x64.tar.gz` |
 
             See the [Native library guide](https://kiberon-labs.github.io/graph-grammar/guides/native-library/).
+
+  # Publish the crate to crates.io. Gated on `build` so it only fires once every
+  # platform built + smoke-tested. Auth is OIDC Trusted Publishing (no token
+  # secret) — the same model as the npm release. One-time bootstrap: the FIRST
+  # publish must be a manual `cargo publish` (with an API token) to claim the
+  # name, after which a Trusted Publisher is configured on crates.io for
+  # owner=Kiberon-Labs, repo=graph-grammar, workflow=native-release.yml,
+  # environment=crates-io.
+  publish-crate:
+    name: Publish to crates.io
+    needs: build
+    # Only on a tag push, and never from a fork.
+    if: startsWith(github.ref, 'refs/tags/') && github.repository == 'Kiberon-Labs/graph-grammar'
+    runs-on: ubuntu-latest
+    environment: crates-io
+    permissions:
+      id-token: write   # mint the short-lived crates.io token via OIDC
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # Guard against a tag that doesn't match the manifest — crates.io publishes
+      # the Cargo.toml version regardless of the tag, so refuse a mismatch.
+      - name: Verify tag matches Cargo.toml version
+        shell: bash
+        run: |
+          VERSION=$(grep '^version' "$CRATE_DIR/Cargo.toml" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          TAG="${GITHUB_REF_NAME#graph-grammar-native-v}"
+          echo "Cargo.toml version: $VERSION ,tag version: $TAG"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "::error::Tag version ($TAG) does not match Cargo.toml version ($VERSION)"
+            exit 1
+          fi
+
+      - name: Authenticate to crates.io (Trusted Publishing)
+        id: auth
+        uses: rust-lang/crates-io-auth-action@v1
+
+      - name: Publish
+        shell: bash
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: cargo publish --manifest-path "$CRATE_DIR/Cargo.toml"

@@ -77,7 +77,7 @@ fn run_fixture(name: &str) {
     // Engine fixtures (multi-step run) carry a `grammar`; rule fixtures a `rule`.
     if let Some(grammar) = input.get("grammar") {
         let grammar_json = serde_json::to_string(grammar).unwrap();
-        let (graph_json, applied) = graph_grammar_native::run_grammar(&grammar_json, None, None)
+        let (graph_json, applied) = graph_grammar::run_grammar(&grammar_json, None, None)
             .unwrap_or_else(|e| panic!("{name}: run errored (code {}): {}", e.code, e.detail));
         let got: Value = serde_json::from_str(&graph_json).unwrap();
         graphs_equiv(&got, &expected)
@@ -93,8 +93,8 @@ fn run_fixture(name: &str) {
 
     // Seeded fixtures take the stochastic path; deterministic ones the plain one.
     let out = match input.get("seed").and_then(|s| s.as_u64()) {
-        Some(seed) => graph_grammar_native::apply_rule_seeded(&rule_json, &graph_json, seed as u32),
-        None => graph_grammar_native::apply_rule(&rule_json, &graph_json),
+        Some(seed) => graph_grammar::apply_rule_seeded(&rule_json, &graph_json, seed as u32),
+        None => graph_grammar::apply_rule(&rule_json, &graph_json),
     }
     .unwrap_or_else(|e| panic!("{name}: apply errored (code {}): {}", e.code, e.detail));
     let envelope: Value = serde_json::from_str(&out).unwrap();
@@ -135,13 +135,13 @@ fn rejects_schema_invalid_input() {
     // A rule missing the required `rhs`.
     let bad_rule = r#"{"id":"r","name":"r","enabled":true,"weight":1,"probability":1,
         "priority":0,"maxApplications":0,"lhs":{"nodes":[],"edges":[]},"morphism":[],"embedding":[]}"#;
-    let err = graph_grammar_native::apply_rule(bad_rule, graph).expect_err("rule should be rejected");
+    let err = graph_grammar::apply_rule(bad_rule, graph).expect_err("rule should be rejected");
     assert_eq!(err.code, 1, "detail: {}", err.detail);
     assert!(err.detail.contains("rule"), "detail: {}", err.detail);
 
     // A grammar missing the required `config`.
     let bad_grammar = r#"{"id":"g","name":"g","rules":[],"start":{"nodes":[],"edges":[]}}"#;
     let err =
-        graph_grammar_native::run_grammar(bad_grammar, None, None).expect_err("grammar should be rejected");
+        graph_grammar::run_grammar(bad_grammar, None, None).expect_err("grammar should be rejected");
     assert_eq!(err.code, 1, "detail: {}", err.detail);
 }

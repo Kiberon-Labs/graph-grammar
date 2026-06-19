@@ -5,12 +5,12 @@ using System.Text.Json;
 namespace GraphGrammar;
 
 /// <summary>
-/// Thin P/Invoke wrapper over the graph-grammar-native C ABI.
+/// Thin P/Invoke wrapper over the graph-grammar native C ABI.
 /// Strings cross the boundary as NUL-terminated UTF-8 (JSON in, JSON out).
 /// </summary>
 public static class Native
 {
-    private const string Lib = "graph_grammar_native";
+    private const string Lib = "graph_grammar";
 
     static Native()
     {
@@ -25,10 +25,10 @@ public static class Native
         if (!string.IsNullOrEmpty(env)) return env;
 
         var fileName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-            ? "graph_grammar_native.dll"
+            ? "graph_grammar.dll"
             : RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
-                ? "libgraph_grammar_native.dylib"
-                : "libgraph_grammar_native.so";
+                ? "libgraph_grammar.dylib"
+                : "libgraph_grammar.so";
 
         for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir is not null; dir = dir.Parent)
         {

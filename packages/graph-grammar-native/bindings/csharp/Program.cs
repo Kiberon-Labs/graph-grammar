@@ -64,7 +64,7 @@ if (fixtures is null)
     return 1;
 }
 
-Console.WriteLine($"graph-grammar-native version: {Native.Version()}");
+Console.WriteLine($"graph-grammar version: {Native.Version()}");
 
 var names = Directory.EnumerateFiles(fixtures, "*.input.json")
     .Select(p => Path.GetFileName(p)[..^".input.json".Length])
