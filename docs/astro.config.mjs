@@ -27,7 +27,7 @@ export default defineConfig({
   base,
   integrations: [
     // Explicitly owned (Starlight would otherwise add @astrojs/sitemap with
-    // defaults). Only emits when `site` is set — provided by the Pages deploy.
+    // defaults). Only emits when `site` is set ,provided by the Pages deploy.
     sitemap(),
     starlight({
       title: 'Graph Grammar',
@@ -95,6 +95,7 @@ export default defineConfig({
             { label: 'Authoring rules', slug: 'guides/authoring-rules' },
             { label: 'Application strategies', slug: 'guides/strategies' },
             { label: 'Serialization & validation', slug: 'guides/serialization' },
+            { label: 'Using the native library (DLL)', slug: 'guides/native-library' },
             { label: 'Embedding the editor', slug: 'guides/embedding-the-editor' },
             { label: 'Custom node rendering', slug: 'guides/custom-node-rendering' },
             { label: 'Planning & search', slug: 'guides/planning' },

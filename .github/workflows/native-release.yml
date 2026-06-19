@@ -1,0 +1,132 @@
+name: Native Release
+
+# Build the graph-grammar-native shared libraries (C ABI) for every supported
+# platform and publish them as downloadable GitHub Release assets.
+#
+# Cut a release by pushing a tag, e.g.:
+#   git tag graph-grammar-native-v0.1.0 && git push origin graph-grammar-native-v0.1.0
+#
+# `workflow_dispatch` builds + uploads the artifacts without publishing a release
+# (handy for verifying the matrix before tagging).
+
+on:
+  push:
+    tags:
+      - 'graph-grammar-native-v*'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+env:
+  CRATE_DIR: packages/graph-grammar-native
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, target: x86_64-pc-windows-msvc,    name: windows-x64, lib: graph_grammar_native.dll }
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu,  name: linux-x64,   lib: libgraph_grammar_native.so }
+          - { os: macos-latest,   target: aarch64-apple-darwin,      name: macos-arm64, lib: libgraph_grammar_native.dylib }
+          - { os: macos-13,       target: x86_64-apple-darwin,       name: macos-x64,   lib: libgraph_grammar_native.dylib }
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ${{ env.CRATE_DIR }}
+
+      # A fixture-free smoke test: confirms the library builds, links, and loads,
+      # and that the embedded schema validates, on this platform. Full conformance
+      # (which needs the TS engine to generate fixtures) runs in CI on PRs.
+      - name: Smoke test
+        shell: bash
+        run: cargo test --release --manifest-path "$CRATE_DIR/Cargo.toml" --target ${{ matrix.target }} rejects_schema_invalid_input
+
+      - name: Build release library
+        shell: bash
+        run: cargo build --release --manifest-path "$CRATE_DIR/Cargo.toml" --target ${{ matrix.target }}
+
+      # Unix: a .tar.gz. (Split from the Windows step so each uses its native
+      # archiver ,Git Bash's tar can't reliably author a real .zip.)
+      - name: Package (Unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          VERSION=$(grep '^version' "$CRATE_DIR/Cargo.toml" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          NAME="graph-grammar-native-${VERSION}-${{ matrix.name }}"
+          STAGE="$RUNNER_TEMP/pkg"
+          mkdir -p "$STAGE"
+          cp "$CRATE_DIR/target/${{ matrix.target }}/release/${{ matrix.lib }}" "$STAGE/"
+          cp "$CRATE_DIR/include/graph_grammar.h" "$STAGE/"
+          cp "$CRATE_DIR/schema/graph-grammar.schema.json" "$STAGE/"
+          cp "$CRATE_DIR/README.md" "$STAGE/"
+          tar -czf "$NAME.tar.gz" -C "$STAGE" .
+          echo "ARCHIVE_PATH=$NAME.tar.gz" >> "$GITHUB_ENV"
+
+      # Windows: a .zip via PowerShell's Compress-Archive.
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path "$env:CRATE_DIR/Cargo.toml" -Pattern '^version = "(.*)"').Matches[0].Groups[1].Value
+          $name = "graph-grammar-native-$version-${{ matrix.name }}"
+          $stage = "$env:RUNNER_TEMP/pkg"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item "$env:CRATE_DIR/target/${{ matrix.target }}/release/${{ matrix.lib }}" $stage
+          Copy-Item "$env:CRATE_DIR/include/graph_grammar.h" $stage
+          Copy-Item "$env:CRATE_DIR/schema/graph-grammar.schema.json" $stage
+          Copy-Item "$env:CRATE_DIR/README.md" $stage
+          Compress-Archive -Path "$stage/*" -DestinationPath "$name.zip" -Force
+          "ARCHIVE_PATH=$name.zip" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ env.ARCHIVE_PATH }}
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    # Only publish when triggered by a tag push (not workflow_dispatch).
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*
+          generate_release_notes: true
+          body: |
+            Native `graph-grammar` shared libraries (C ABI) ,use the engine from
+            C#, Python, C/C++, or any language with an FFI, with no Node runtime.
+
+            Each archive contains the platform library, the generated
+            `graph_grammar.h`, the `graph-grammar.schema.json` contract, and the README.
+
+            | Platform | Asset |
+            | --- | --- |
+            | Windows x64 | `…-windows-x64.zip` |
+            | Linux x64 | `…-linux-x64.tar.gz` |
+            | macOS (Apple silicon) | `…-macos-arm64.tar.gz` |
+            | macOS (Intel) | `…-macos-x64.tar.gz` |
+
+            See the [Native library guide](https://kiberon-labs.github.io/graph-grammar/guides/native-library/).

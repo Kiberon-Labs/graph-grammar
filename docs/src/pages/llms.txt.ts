@@ -44,7 +44,7 @@ export const GET: APIRoute = async ({ site }) => {
   }
 
   const docs = (await getCollection('docs'))
-    // Drop the splash landing page (empty id) — it has no standalone content.
+    // Drop the splash landing page (empty id) ,it has no standalone content.
     .filter((entry) => entry.id !== '' && entry.id !== 'index')
     .sort((a, b) => weight(a.id) - weight(b.id) || a.data.title.localeCompare(b.data.title))
 

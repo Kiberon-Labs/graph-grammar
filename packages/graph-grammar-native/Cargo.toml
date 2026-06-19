@@ -1,0 +1,28 @@
+[package]
+name = "graph-grammar-native"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "C-ABI native library exposing the graph-grammar rewrite engine to non-TypeScript callers (Phase 1 vertical slice)."
+
+[lib]
+name = "graph_grammar_native"
+# cdylib  -> the .dll/.so/.dylib loaded by C#, Python, C++, …
+# rlib     -> lets the Rust integration tests link the crate directly
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# setProps must evaluate in JSON insertion order (the engine uses Object.entries),
+# so the RNG consumption order matches ,a plain HashMap would reorder.
+indexmap = { version = "2", features = ["serde"] }
+regex = "1"
+jsonschema = { version = "0.46.5", default-features = false }
+
+[dev-dependencies]
+serde_json = "1"
+
+[build-dependencies]
+cbindgen = "0.27"

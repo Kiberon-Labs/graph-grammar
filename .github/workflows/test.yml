@@ -60,3 +60,51 @@ jobs:
       - name: Run tests
         run: pnpm run test:ci
 
+  native:
+    name: Native (Rust) conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: false
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/graph-grammar-native
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      # The native conformance fixtures and the embedded JSON Schema are both
+      # derived from the TS engine, so build it first, then assert the schema is
+      # still in lockstep with the zod source before generating fixtures.
+      - name: Build engine
+        run: pnpm --filter graph-grammar build
+
+      - name: Check schema is in sync with zod
+        working-directory: packages/graph-grammar-native
+        run: pnpm dlx tsx scripts/emit-schema.ts --check
+
+      - name: Generate conformance fixtures
+        working-directory: packages/graph-grammar-native
+        run: pnpm dlx tsx conformance/generate.ts
+
+      - name: Run Rust conformance tests
+        run: cargo test --manifest-path packages/graph-grammar-native/Cargo.toml
+

@@ -1,0 +1,739 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Rule"
+      }
+    },
+    "config": {
+      "$ref": "#/$defs/GrammarConfig"
+    },
+    "start": {
+      "$ref": "#/$defs/Graph"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "rules",
+    "config",
+    "start"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "probability": {
+          "type": "number"
+        },
+        "priority": {
+          "type": "number"
+        },
+        "maxApplications": {
+          "type": "number"
+        },
+        "lhs": {
+          "$ref": "#/$defs/PatternGraph"
+        },
+        "rhs": {
+          "$ref": "#/$defs/RhsGraph"
+        },
+        "morphism": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Morphism"
+          }
+        },
+        "embedding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EmbeddingRule"
+          }
+        },
+        "nac": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PatternGraph"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "enabled",
+        "weight",
+        "probability",
+        "priority",
+        "maxApplications",
+        "lhs",
+        "rhs",
+        "morphism",
+        "embedding"
+      ],
+      "additionalProperties": false
+    },
+    "PatternGraph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PatternNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PatternEdge"
+          }
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "additionalProperties": false
+    },
+    "PatternNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "x": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "y": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "wildcard": {
+          "type": "boolean"
+        },
+        "predicates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PropPredicate"
+          }
+        },
+        "exactDegree": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "props"
+      ],
+      "additionalProperties": {}
+    },
+    "__schema0": {
+      "type": "string"
+    },
+    "__schema1": {
+      "type": "string"
+    },
+    "Props": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/PropValue"
+      }
+    },
+    "PropValue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "__schema2": {
+      "type": "number"
+    },
+    "__schema3": {
+      "type": "number"
+    },
+    "PropPredicate": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "op": {
+          "$ref": "#/$defs/PredicateOp"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PropValue"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/PropValue"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "op"
+      ],
+      "additionalProperties": false
+    },
+    "PredicateOp": {
+      "type": "string",
+      "enum": [
+        "exists",
+        "absent",
+        "eq",
+        "neq",
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "contains",
+        "regex",
+        "in"
+      ]
+    },
+    "PatternEdge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "source": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "target": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "directed": {
+          "$ref": "#/$defs/__schema8"
+        },
+        "wildcard": {
+          "type": "boolean"
+        },
+        "predicates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PropPredicate"
+          }
+        },
+        "anyDirection": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "label",
+        "props",
+        "directed"
+      ],
+      "additionalProperties": false
+    },
+    "__schema4": {
+      "type": "string"
+    },
+    "__schema5": {
+      "type": "string"
+    },
+    "__schema6": {
+      "type": "string"
+    },
+    "__schema7": {
+      "type": "string"
+    },
+    "__schema8": {
+      "type": "boolean"
+    },
+    "RhsGraph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RhsNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RhsEdge"
+          }
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "additionalProperties": false
+    },
+    "RhsNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "x": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "y": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "mapFrom": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setProps": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/PropExpr"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "props"
+      ],
+      "additionalProperties": {}
+    },
+    "PropExpr": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "literal"
+            },
+            "value": {
+              "$ref": "#/$defs/PropValue"
+            }
+          },
+          "required": [
+            "kind",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "copy"
+            },
+            "from": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "from",
+            "key"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "randInt"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "min",
+            "max"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "randFloat"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "min",
+            "max"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "increment"
+            },
+            "from": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "by": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "from",
+            "key",
+            "by"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "counter"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "RhsEdge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "source": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "target": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "directed": {
+          "$ref": "#/$defs/__schema8"
+        },
+        "mapFrom": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setProps": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/PropExpr"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "label",
+        "props",
+        "directed"
+      ],
+      "additionalProperties": false
+    },
+    "Morphism": {
+      "type": "object",
+      "properties": {
+        "lhsNodeId": {
+          "type": "string"
+        },
+        "rhsNodeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "lhsNodeId",
+        "rhsNodeId"
+      ],
+      "additionalProperties": false
+    },
+    "EmbeddingRule": {
+      "type": "object",
+      "properties": {
+        "lhsNodeId": {
+          "type": "string"
+        },
+        "strategy": {
+          "$ref": "#/$defs/EmbeddingStrategy"
+        },
+        "targetRhsNodeId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "edgeLabelFilter": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "newEdgeLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "lhsNodeId",
+        "strategy"
+      ],
+      "additionalProperties": false
+    },
+    "EmbeddingStrategy": {
+      "type": "string",
+      "enum": [
+        "remove",
+        "redirectToAll",
+        "redirectTo"
+      ]
+    },
+    "GrammarConfig": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "$ref": "#/$defs/ApplicationStrategy"
+        },
+        "seed": {
+          "type": "number"
+        },
+        "maxSteps": {
+          "type": "number"
+        },
+        "maxNodes": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "strategy",
+        "seed",
+        "maxSteps",
+        "maxNodes"
+      ],
+      "additionalProperties": false
+    },
+    "ApplicationStrategy": {
+      "type": "string",
+      "enum": [
+        "random",
+        "priority",
+        "sequential",
+        "maximal"
+      ]
+    },
+    "Graph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GEdge"
+          }
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "additionalProperties": false
+    },
+    "GNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "x": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "y": {
+          "$ref": "#/$defs/__schema3"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "props"
+      ],
+      "additionalProperties": {}
+    },
+    "GEdge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "source": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "target": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "label": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "props": {
+          "$ref": "#/$defs/Props"
+        },
+        "directed": {
+          "$ref": "#/$defs/__schema8"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "label",
+        "props",
+        "directed"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "title": "Grammar"
+}

@@ -12,6 +12,7 @@ published to npm:
 | --- | --- | --- |
 | `packages/graph-grammar` | **`graph-grammar`** (published) | The framework-agnostic engine. Matching, rewriting, strategies, serialization. Only runtime dep is `zod`. |
 | `packages/graph-grammar-react` | **`graph-grammar-react`** (published) | The embeddable React editor , the full visual workbench as a component, plus building blocks. Re-exports the engine. |
+| `packages/graph-grammar-native` | **`graph-grammar-native`** | The graph grammar system available as an embeddable .dll  |
 | `apps/web` | `@graph-grammar/web` (private) | A thin demo shell that mounts the editor. |
 | `docs` | `@graph-grammar/docs` (private) | The documentation site (Astro + Starlight). |
 

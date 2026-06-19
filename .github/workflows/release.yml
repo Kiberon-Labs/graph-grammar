@@ -60,7 +60,7 @@ jobs:
           NPM_TOKEN: ${{ SECRETS.NPM_TOKEN}}
 
       # Announce to the company Slack, but only when packages were actually
-      # published this run (changesets sets `published=true` only then — not when
+      # published this run (changesets sets `published=true` only then ,not when
       # it merely opens the "Version Packages" PR).
       - name: Notify company Slack of published packages
         if: steps.changesets.outputs.published == 'true'
@@ -81,7 +81,7 @@ jobs:
           # No channel/username/icon_emoji overrides: an app-based incoming
           # webhook ignores them and posts to its configured channel, while a
           # legacy webhook returns 404 `channel_not_found` if "#packages" can't
-          # be resolved — a likely cause of the earlier curl 404.
+          # be resolved ,a likely cause of the earlier curl 404.
           PAYLOAD=$(jq -n \
             --arg pkgs "$PACKAGE_LINES" \
             --arg run "$RUN_URL" \

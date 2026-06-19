@@ -1,0 +1,12 @@
+# Rust
+/target
+
+# C# sample
+bindings/csharp/bin/
+bindings/csharp/obj/
+
+# Python
+__pycache__/
+
+# Generated conformance fixtures (reproducible via `npx tsx conformance/generate.ts`)
+/conformance/fixtures/
