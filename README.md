@@ -1,5 +1,11 @@
 # Graph Grammar
 
+![NPM Version](https://img.shields.io/npm/v/graph-grammar?label=graph-grammar)
+
+![NPM Version](https://img.shields.io/npm/v/graph-grammar-react?label=graph-grammar-react)
+
+[![Native Release](https://github.com/Kiberon-Labs/graph-grammar/actions/workflows/native-release.yml/badge.svg)](https://github.com/Kiberon-Labs/graph-grammar/actions/workflows/native-release.yml)
+
 A **graph rewriting** (graph grammar) engine and an interactive workbench for it.
 Author rewrite rules with a left-hand-side *pattern* and a right-hand-side *result*,
 draw the morphism that connects them, then watch the rules iteratively transform a
