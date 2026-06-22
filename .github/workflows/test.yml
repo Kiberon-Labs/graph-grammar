@@ -53,12 +53,11 @@ jobs:
       - name: Check linting & formatting
         run: pnpm run lint:ci
 
-      # Skip for now. Move fast and break things.
-      # - name: Check types
-      #   run: pnpm run typecheck
+      - name: Check types
+        run: pnpm run typecheck
 
       - name: Run tests
-        run: pnpm run test:ci
+        run: pnpm run testa
 
   native:
     name: Native (Rust) conformance
